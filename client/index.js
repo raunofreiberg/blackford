@@ -16,7 +16,6 @@ import rootReducer from './reducers';
 const dev = process.env.NODE_ENV === 'development';
 
 const createReduxStore = (reducer) => {
-    console.log(process.env.API_HOST)
     /* eslint-disable */
     const composeEnhancers =
         typeof window === 'object' &&

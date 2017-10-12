@@ -1,0 +1,6 @@
+@import "~bootstrap-sass/assets/stylesheets/_bootstrap-sprockets.scss";
+@import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import './global';
+@import '../components/Todos/Todos';
+@import '../components/TodosNew/TodosNew';
+@import '../components/TodoShow/TodoShow';

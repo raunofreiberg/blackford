@@ -7,7 +7,8 @@
     "dev": "concurrently \"NODE_ENV=development npm run server\" \"NODE_ENV=development npm run client\"",
     "client": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --progress --colors",
     "server": "./node_modules/.bin/nodemon ./server/init.js",
-    "heroku-postbuild": "./node_modules/.bin/webpack && NODE_ENV=production npm run server"
+    "heroku-postbuild": "./node_modules/.bin/webpack",
+    "start": "NODE_ENV=production npm run server",
   },
   "keywords": [],
   "author": "",

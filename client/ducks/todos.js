@@ -34,7 +34,7 @@ const setFetchedTodo = todo => ({ type: FETCH_TODO, todo });
 
 export const createTodo = (values, callback) => {
     try {
-        fetch('/api/todos', {
+        fetch(`${process.env.API_HOST}/api/todos`, {
             method: 'POST',
             headers: new Headers({ 'content-type': 'application/json' }),
             mode: 'cors',
@@ -49,7 +49,7 @@ export const createTodo = (values, callback) => {
 
 export function deleteTodo(id, callback) {
     try {
-        fetch(`/api/todos/${id}`, {
+        fetch(`${process.env.API_HOST}/api/todos/${id}`, {
             method: 'DELETE',
             headers: new Headers({ 'content-type': 'application/json' }),
             mode: 'cors',
@@ -62,7 +62,7 @@ export function deleteTodo(id, callback) {
 }
 
 export function editTodo(id, values, callback) {
-    const request = axios.put(`/api/todos/${id}`, values)
+    const request = axios.put(`${process.env.API_HOST}/api/todos/${id}`, values)
         .then(() => {
             callback();
         });
@@ -72,7 +72,7 @@ export function editTodo(id, values, callback) {
 
 export const fetchTodo = (id, callback) => (dispatch) => {
     try {
-        fetch(`/api/todos/${id}`)
+        fetch(`${process.env.API_HOST}/api/todos/${id}`)
             .then(res => res.json())
             .then(data => dispatch(setFetchedTodo(data.todo)));
     } catch (e) {
@@ -82,7 +82,7 @@ export const fetchTodo = (id, callback) => (dispatch) => {
 
 export const fetchTodos = () => (dispatch) => {
     try {
-        fetch('api/todos')
+        fetch(`${process.env.API_HOST}/api/todos`)
             .then(res => res.json())
             .then(data => dispatch(setTodos(data.todos)));
     } catch (e) {

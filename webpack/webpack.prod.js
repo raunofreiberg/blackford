@@ -50,6 +50,9 @@ module.exports = webpackMerge(commonConfig, {
                 },
             },
         }),
+        new webpack.DefinePlugin({
+            'process.env.API_HOST': JSON.stringify('https://peaceful-river-36198.herokuapp.com'),
+        }),
         new webpack.optimize.UglifyJsPlugin({
             minimize: true,
             mangle: false,

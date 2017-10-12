@@ -13,9 +13,10 @@ import './sass/style.scss';
 import Router from './Router';
 import rootReducer from './reducers';
 
-const dev = NODE_ENV === 'development';
+const dev = process.env.NODE_ENV === 'development';
 
 const createReduxStore = (reducer) => {
+    console.log(process.env.API_HOST)
     /* eslint-disable */
     const composeEnhancers =
         typeof window === 'object' &&
@@ -24,7 +25,7 @@ const createReduxStore = (reducer) => {
 
     /* eslint-enable */
     const middleware = [];
-    !dev ? middleware.push(thunk) : middleware.push(thunk, createLogger());
+    dev ? middleware.push(thunk, createLogger()) : middleware.push(thunk);
 
     const enhancer = composeEnhancers(
         applyMiddleware(...middleware),

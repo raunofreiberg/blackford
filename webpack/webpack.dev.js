@@ -28,10 +28,13 @@ module.exports = webpackMerge(commonConfig, {
     },
     plugins: [
         new WebpackNotifierPlugin({
-            alwaysNotify: true
+            alwaysNotify: true,
         }),
         new HtmlWebpackPlugin({
-            template: './client/index.html'
+            template: './client/index.html',
+        }),
+        new webpack.DefinePlugin({
+            'process.env.API_HOST': JSON.stringify('http://localhost:3001'),
         }),
     ],
     devServer: {

@@ -46,25 +46,17 @@ module.exports = webpackMerge(commonConfig, {
         new OptimizeCssAssetsPlugin({
             cssProcessorOptions: {
                 discardComments: {
-                    removeAll: true
-                }
-            }
+                    removeAll: true,
+                },
+            },
         }),
         new webpack.optimize.UglifyJsPlugin({
             minimize: true,
             mangle: false,
             compressor: {
-                drop_console: true,
-                warnings: false
+                drop_console: true,,
+                warnings: false,
             }
-        }),
-        new CopyWebpackPlugin([{
-            from: helpers.root('client/humans.txt'),
-            to: helpers.root('dist')
-        }]),
-        new CopyWebpackPlugin([{
-            from: helpers.root('client/robots.txt'),
-            to: helpers.root('dist')
-        }])
+        })
     ]
 });

@@ -8,8 +8,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlPluginRemove = require('html-webpack-plugin-remove');
-
 module.exports = webpackMerge(commonConfig, {
+    devtool: 'source-map',
     output: {
         path: helpers.root('dist'),
         filename: '[name].[chunkhash].js',

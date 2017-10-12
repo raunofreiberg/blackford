@@ -4,7 +4,7 @@
   "description": "",
   "main": "./server/init.js",
   "scripts": {
-    "start": "NODE_ENV=development node ./server/init.js",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
     "client": "NODE_ENV=development node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --progress --colors",
     "server": "./node_modules/.bin/nodemon ./server/init.js",
     "heroku-postbuild": "NODE_ENV=production ./node_modules/.bin/webpack"
@@ -30,6 +30,7 @@
     "bootstrap-sass": "^3.3.7",
     "clean-webpack-plugin": "^0.1.16",
     "compression": "^1.6.2",
+    "concurrently": "^3.5.0",
     "cookie-parser": "^1.4.3",
     "copy-webpack-plugin": "^4.0.1",
     "cors": "^2.8.3",

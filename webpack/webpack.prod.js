@@ -54,7 +54,7 @@ module.exports = webpackMerge(commonConfig, {
             minimize: true,
             mangle: false,
             compressor: {
-                drop_console: true,,
+                drop_console: true,
                 warnings: false,
             }
         })

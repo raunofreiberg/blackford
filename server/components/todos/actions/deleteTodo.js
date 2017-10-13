@@ -1,8 +1,10 @@
 const knex = require('../../../dbConnect');
 
-module.exports = (req, res) => {
-    return knex('todos')
+module.exports = req => (
+    knex('todos')
         .where({
             id: req.params.id,
-        }).del();
-};
+        })
+        .del()
+        .then(() => knex('todos'))
+);

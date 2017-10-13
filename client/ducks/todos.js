@@ -12,6 +12,7 @@ const initialState = {
 export default function todoReducer(state = initialState, action) {
     switch (action.type) {
         case SET_TODOS:
+            console.log('#####', action)
             return {
                 ...state,
                 todos: action.todos,
@@ -43,16 +44,15 @@ export const createTodo = (values, callback) => async () => {
     }
 };
 
-export const deleteTodo = id => async (dispatch, getState) => {
+export const deleteTodo = id => async (dispatch) => {
     try {
-        const res = await fetch(`${process.env.API_HOST}/api/todos/${id}`, {
+        let res = await fetch(`${process.env.API_HOST}/api/todos/${id}`, {
             method: 'DELETE',
             headers: new Headers({ 'content-type': 'application/json' }),
             mode: 'cors',
         });
-        const oldState = await getState().todos.todos;
-        const newState = await oldState.filter(t => t.id !== id);
-        await dispatch(setTodos(newState));
+        res = await res.json();
+        await dispatch(setTodos(res.todos));
     } catch (e) {
         console.log(e);
     }

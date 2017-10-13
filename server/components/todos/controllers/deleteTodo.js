@@ -2,9 +2,9 @@ const deleteTodo = require('../actions/deleteTodo.js');
 
 module.exports = (req, res) => {
     deleteTodo(req, res)
-        .then((todo) => {
+        .then((todos) => {
             res.status(200).json({
-                todo,
+                todos,
             });
         })
         .catch((err) => {

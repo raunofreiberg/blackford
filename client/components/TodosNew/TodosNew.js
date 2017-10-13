@@ -5,7 +5,6 @@ import { Field, reduxForm } from 'redux-form';
 import { createTodo } from '../../ducks/todos';
 
 class TodosNew extends React.Component {
-
     onSubmit(values) {
         this.props.createTodo(values, () => {
             this.props.history.push('/');
@@ -19,10 +18,10 @@ class TodosNew extends React.Component {
         return (
             <div className={className}>
                 <label>{field.label}</label>
-                <input type='text' className='form-control' {...field.input}/>
+                <input type="text" className="form-control" {...field.input} />
                 <div>
                     {touched
-                        ? <p className='text-danger'>{error}</p>
+                        ? <p className="text-danger">{error}</p>
                         : ''}
                 </div>
             </div>
@@ -33,14 +32,14 @@ class TodosNew extends React.Component {
         const { handleSubmit } = this.props;
 
         return (
-            <div className='todos-new'>
+            <div className="todos-new">
                 <h3>New Todo</h3>
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                    <Field name='content' label='Todo Content' component={this.renderField}/>
-                    <button type='submit' className='btn btn-primary'>
+                    <Field name="content" label="Todo Content" component={this.renderField} />
+                    <button type="submit" className="btn btn-primary">
                         Submit
                     </button>
-                    <Link to='/' className='btn btn-danger margin-left-sm'>
+                    <Link to="/" className="btn btn-danger margin-left-sm">
                         Cancel
                     </Link>
                 </form>

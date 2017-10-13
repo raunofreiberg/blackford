@@ -33,8 +33,8 @@ class TodoShow extends PureComponent {
         const {
             meta: {
                 touched,
-                error
-            }
+                error,
+            },
         } = field;
 
         const className = `form-group ${touched && error
@@ -44,10 +44,10 @@ class TodoShow extends PureComponent {
         return (
             <div className={className}>
                 <label>{field.label}</label>
-                <input type='text' className='form-control' {...field.input}/>
+                <input type="text" className="form-control" {...field.input} />
                 <div>
                     {touched
-                        ? <p className='text-danger'>{error}</p>
+                        ? <p className="text-danger">{error}</p>
                         : ''}
                 </div>
             </div>
@@ -81,29 +81,29 @@ class TodoShow extends PureComponent {
 
         if (!todo) {
             return (
-                <div className='container text-center'>
+                <div className="container text-center">
                     <h3>Loading...</h3>
                 </div>
             );
         }
 
         return (
-            <div className='todo-show'>
-                <div className='text-right'>
-                    <Link to='/' className='btn btn-primary'>
+            <div className="todo-show">
+                <div className="text-right">
+                    <Link to="/" className="btn btn-primary">
                         Back To Todos
                     </Link>
                 </div>
 
-                <div className='container text-center'>
+                <div className="container text-center">
                     <h2>Content:</h2>
                     <h4>{this.props.todo.content}</h4>
                 </div>
 
-                <div className='container'>
+                <div className="container">
                     <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                        <Field name='content' label='Edit Todo Content' component={this.renderField}/>
-                        <button type='submit' className='btn btn-primary'>
+                        <Field name="content" label="Edit Todo Content" component={this.renderField} />
+                        <button type="submit" className="btn btn-primary">
                             Save Changes
                         </button>
                     </form>
@@ -112,14 +112,14 @@ class TodoShow extends PureComponent {
         );
     }
 }
-;
+
 
 function mapStateToProps(state, ownProps) {
     return {
         todo: state.todos.todo,
         initialValues: {
-            content: state.todos.todo.content
-        }
+            content: state.todos.todo.content,
+        },
     };
 }
 

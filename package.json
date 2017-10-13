@@ -10,7 +10,8 @@
     "heroku-postbuild": "webpack -p --config webpack/webpack.prod.js --progress --profile --color",
     "start": "NODE_ENV=production npm run server",
     "prod": "webpack -p --config webpack/webpack.prod.js --progress --profile --color && npm run start",
-    "migrate": "knex migrate:latest"
+    "migrate": "knex migrate:latest",
+    "lint": "eslint client/ --ext .js --ext .jsx && eslint server/ --ext .js"
   },
   "keywords": [],
   "author": "",

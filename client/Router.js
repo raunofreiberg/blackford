@@ -9,10 +9,10 @@ const Router = () => (
     <BrowserRouter>
         <div>
             <Switch>
-                <Route path='/todos/new' component={TodosNew} />
-                <Route path='/todos/:id' component={TodoShow} />
-                <Route exact path='/' component={Todos} />
-                <Redirect from='*' to='/' />
+                <Route path="/todos/new" component={TodosNew} />
+                <Route path="/todos/:id" component={TodoShow} />
+                <Route exact path="/" component={Todos} />
+                <Redirect from="*" to="/" />
             </Switch>
         </div>
     </BrowserRouter>

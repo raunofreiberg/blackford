@@ -12,7 +12,7 @@ const initialState = {
 export default function todoReducer(state = initialState, action) {
     switch (action.type) {
         case SET_TODOS:
-            console.log('#####', action)
+            console.log('#####', action);
             return {
                 ...state,
                 todos: action.todos,
@@ -81,8 +81,7 @@ export const editTodo = (id, values, callback) => async () => {
             body: JSON.stringify(values),
         });
         await callback();
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
     }
 };

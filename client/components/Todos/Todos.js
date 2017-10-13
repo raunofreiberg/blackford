@@ -1,7 +1,7 @@
-import React, {PureComponent} from 'react';
-import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
-import {fetchTodos, deleteTodo, deleteAllTodos} from '../../ducks/todos';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { fetchTodos, deleteTodo, deleteAllTodos } from '../../ducks/todos';
 import _ from 'lodash';
 
 class Todos extends PureComponent {
@@ -19,12 +19,12 @@ class Todos extends PureComponent {
                 {this.props.todos.map(todo => (
                     <div>
                         <Link to={`/todos/${todo.id}`} key={todo.id}>
-                            <li className='list-group-item'>
+                            <li className="list-group-item">
                                 {todo.content}
                             </li>
                         </Link>
                         <button
-                            className='btn btn-danger'
+                            className="btn btn-danger"
                             onClick={() => this.props.deleteTodo(todo.id)}
                         >
                             Delete Todo
@@ -32,19 +32,19 @@ class Todos extends PureComponent {
                     </div>
                 ))}
             </div>
-        )
+        );
     }
 
     render() {
         if (!this.props.todos || !_.size(this.props.todos)) {
             return (
-                <div className='todos'>
-                    <div className='text-right'>
-                        <Link to='/todos/new' className='btn btn-primary'>
+                <div className="todos">
+                    <div className="text-right">
+                        <Link to="/todos/new" className="btn btn-primary">
                             Create Todo
                         </Link>
                     </div>
-                    <div className='text-center text-primary'>
+                    <div className="text-center text-primary">
                         <h3>No Todos</h3>
                     </div>
                 </div>
@@ -52,20 +52,20 @@ class Todos extends PureComponent {
         }
 
         return (
-            <div className='todos'>
-                <div className='text-right'>
-                    <Link to='/todos/new' className='btn btn-primary'>
+            <div className="todos">
+                <div className="text-right">
+                    <Link to="/todos/new" className="btn btn-primary">
                         Create Todo
                     </Link>
                     <button className="btn btn-danger" onClick={this.props.deleteTodos}>Delete all Todos</button>
                 </div>
                 <h3>Todos</h3>
-                <ul className='list-group'>{this.renderTodos()}</ul>
+                <ul className="list-group">{this.renderTodos()}</ul>
             </div>
         );
     }
 }
-;
+
 
 const mapStateToProps = state => ({
     todos: state.todos.todos,
@@ -82,4 +82,4 @@ const TodosConnector = connect(
     mapDispatchToProps,
 )(Todos);
 
-export default TodosConnector
+export default TodosConnector;

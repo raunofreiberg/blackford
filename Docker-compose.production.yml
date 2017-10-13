@@ -1,0 +1,17 @@
+version: "2"
+services:
+  node:
+    build: .
+    ports:
+      - "3001:3001"
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules
+    links:
+      - db
+    environment:
+      - NODE_ENV=production
+  db:
+    image: postgres
+    expose:
+      - 5432

@@ -1,8 +1,8 @@
 const knex = require('../../../dbConnect');
 
-module.exports = (req, res) => {
-    return knex('todos')
+module.exports = req => (
+    knex('todos')
         .insert({
             content: req.body.content,
-        }).returning('*');
-};
+        }).returning('*')
+);

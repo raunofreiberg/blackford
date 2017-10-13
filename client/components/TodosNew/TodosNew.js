@@ -1,12 +1,15 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { createTodo } from '../../ducks/todos';
 
-class TodosNew extends PureComponent {
-    constructor(props) {
-        super(props);
+class TodosNew extends React.Component {
+
+    onSubmit(values) {
+        this.props.createTodo(values, () => {
+            this.props.history.push('/');
+        });
     }
 
     renderField(field) {
@@ -24,12 +27,6 @@ class TodosNew extends PureComponent {
                 </div>
             </div>
         );
-    }
-
-    onSubmit(values) {
-        this.props.createTodo(values, () => {
-            this.props.history.push('/');
-        });
     }
 
     render() {

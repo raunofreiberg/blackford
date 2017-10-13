@@ -1,3 +1,3 @@
 const knex = require('../../../dbConnect');
 
-module.exports = () => knex('todos');
+module.exports = () => knex('todos').del()

@@ -35,6 +35,7 @@ module.exports = webpackMerge(commonConfig, {
         }),
         new webpack.DefinePlugin({
             'process.env.API_HOST': JSON.stringify('http://localhost:3001'),
+            'process.env.NODE_ENV': JSON.stringify('development'),
         }),
     ],
     devServer: {

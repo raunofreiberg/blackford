@@ -1,5 +1,5 @@
-import React, {PureComponent} from 'react';
-import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom';
+import React, { PureComponent } from 'react';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
 import TodosNew from './components/TodosNew/TodosNew';
 import TodoShow from './components/TodoShow/TodoShow';
@@ -24,6 +24,7 @@ class Router extends PureComponent {
             </BrowserRouter>
         );
     }
-};
+}
+;
 
 export default Router;

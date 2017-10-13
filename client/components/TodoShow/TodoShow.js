@@ -1,8 +1,8 @@
-import React, {PureComponent} from 'react';
-import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
-import {Field, reduxForm} from 'redux-form';
-import {fetchTodo, editTodo, deleteTodo} from '../../ducks/todos';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { Field, reduxForm } from 'redux-form';
+import { fetchTodo, editTodo, deleteTodo } from '../../ducks/todos';
 
 class TodoShow extends PureComponent {
     constructor(props) {
@@ -77,7 +77,7 @@ class TodoShow extends PureComponent {
     }
 
     render() {
-        const {todo, handleSubmit} = this.props;
+        const { todo, handleSubmit } = this.props;
 
         if (!todo) {
             return (
@@ -96,8 +96,8 @@ class TodoShow extends PureComponent {
                     <button
                         className='btn btn-danger pull-left'
                         onClick={this
-                        .deleteTodo
-                        .bind(this)}>
+                            .deleteTodo
+                            .bind(this)}>
                         Delete Todo
                     </button>
                 </div>
@@ -118,7 +118,8 @@ class TodoShow extends PureComponent {
             </div>
         );
     }
-};
+}
+;
 
 function mapStateToProps(state, ownProps) {
     return {
@@ -143,8 +144,8 @@ function validate(values, ownProps) {
     return errors;
 }
 
-let InitializeFromStateForm = reduxForm({validate, form: 'TodosEditForm', enableReinitialize: true})(TodoShow);
+let InitializeFromStateForm = reduxForm({ validate, form: 'TodosEditForm', enableReinitialize: true })(TodoShow);
 
-InitializeFromStateForm = connect(mapStateToProps, {fetchTodo, editTodo, deleteTodo})(InitializeFromStateForm);
+InitializeFromStateForm = connect(mapStateToProps, { fetchTodo, editTodo, deleteTodo })(InitializeFromStateForm);
 
 export default InitializeFromStateForm;

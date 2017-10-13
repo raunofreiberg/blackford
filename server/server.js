@@ -12,6 +12,7 @@ const dev = process.env.NODE_ENV === 'development';
 const todos = require('./components/todos/todos');
 
 const app = express();
+const knex = require('./dbConnect');
 
 app.use(cors());
 app.use(logger('dev'));

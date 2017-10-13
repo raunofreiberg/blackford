@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchTodos } from '../../ducks/todos';
+import { fetchTodos, deleteAllTodos } from '../../ducks/todos';
 import _ from 'lodash';
 
 class Todos extends PureComponent {
@@ -49,6 +49,7 @@ class Todos extends PureComponent {
                     <Link to='/todos/new' className='btn btn-primary'>
                         Create Todo
                     </Link>
+                    <button className="btn btn-danger" onClick={this.props.deleteTodos}>Delete all Todos</button>
                 </div>
                 <h3>Todos</h3>
                 <ul className='list-group'>{this.renderTodos()}</ul>
@@ -58,8 +59,18 @@ class Todos extends PureComponent {
 }
 ;
 
-function mapStateToProps(state) {
-    return { todos: state.todos.todos };
-};
+const mapStateToProps = state => ({
+    todos: state.todos.todos,
+});
 
-export default connect(mapStateToProps, { fetchTodos })(Todos);
+const mapDispatchToProps = dispatch => ({
+    fetchTodos: () => dispatch(fetchTodos()),
+    deleteTodos: () => dispatch(deleteAllTodos()),
+});
+
+const TodosConnector = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Todos);
+
+export default TodosConnector

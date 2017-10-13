@@ -93,13 +93,6 @@ class TodoShow extends PureComponent {
                     <Link to='/' className='btn btn-primary'>
                         Back To Todos
                     </Link>
-                    <button
-                        className='btn btn-danger pull-left'
-                        onClick={this
-                            .deleteTodo
-                            .bind(this)}>
-                        Delete Todo
-                    </button>
                 </div>
 
                 <div className='container text-center'>

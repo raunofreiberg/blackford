@@ -1,9 +1,5 @@
 const FETCH_TODO = 'FETCH_TODO';
-const FETCH_TODOS = 'FETCH_TODOS';
-const CREATE_TODO = 'CREATE_TODO';
-const DELETE_TODO = 'DELETE_TODO';
-const DELETE_TODOS = 'DELETE_TODOS';
-const EDIT_TODO = 'EDIT_TODO';
+const SET_TODOS = 'SET_TODOS';
 
 const initialState = {
     todos: [],
@@ -15,7 +11,7 @@ const initialState = {
 
 export default function todoReducer(state = initialState, action) {
     switch (action.type) {
-        case FETCH_TODOS:
+        case SET_TODOS:
             return {
                 ...state,
                 todos: action.todos,
@@ -25,19 +21,13 @@ export default function todoReducer(state = initialState, action) {
                 ...state,
                 todo: action.todo,
             };
-        case DELETE_TODOS:
-            return {
-                ...state,
-                todos: action.todos,
-            };
         default:
             return state;
     }
-};
+}
 
-const setTodos = todos => ({ type: FETCH_TODOS, todos });
+const setTodos = todos => ({ type: SET_TODOS, todos });
 const setFetchedTodo = todo => ({ type: FETCH_TODO, todo });
-const setDeletedTodos = todos => ({ type: DELETE_TODOS, todos });
 
 export const createTodo = (values, callback) => async () => {
     try {
@@ -53,14 +43,16 @@ export const createTodo = (values, callback) => async () => {
     }
 };
 
-export const deleteTodo = (id, callback) => async () => {
+export const deleteTodo = id => async (dispatch, getState) => {
     try {
-        await fetch(`${process.env.API_HOST}/api/todos/${id}`, {
+        const res = await fetch(`${process.env.API_HOST}/api/todos/${id}`, {
             method: 'DELETE',
             headers: new Headers({ 'content-type': 'application/json' }),
             mode: 'cors',
         });
-        await callback();
+        const oldState = await getState().todos.todos;
+        const newState = await oldState.filter(t => t.id !== id);
+        await dispatch(setTodos(newState));
     } catch (e) {
         console.log(e);
     }
@@ -74,7 +66,7 @@ export const deleteAllTodos = () => (dispatch) => {
             mode: 'cors',
         })
             .then(res => res.json())
-            .then(todos => dispatch(setDeletedTodos(todos)));
+            .then(todos => dispatch(setTodos(todos)));
     } catch (e) {
         console.log(e);
     }
@@ -95,7 +87,7 @@ export const editTodo = (id, values, callback) => async () => {
     }
 };
 
-export const fetchTodo = (id, callback) => (dispatch) => {
+export const fetchTodo = id => (dispatch) => {
     try {
         fetch(`${process.env.API_HOST}/api/todos/${id}`)
             .then(res => res.json())

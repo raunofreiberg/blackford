@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { fetchTodos, deleteAllTodos } from '../../ducks/todos';
+import React, {PureComponent} from 'react';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
+import {fetchTodos, deleteTodo, deleteAllTodos} from '../../ducks/todos';
 import _ from 'lodash';
 
 class Todos extends PureComponent {
@@ -17,11 +17,19 @@ class Todos extends PureComponent {
         return (
             <div>
                 {this.props.todos.map(todo => (
-                    <Link to={`/todos/${todo.id}`} key={todo.id}>
-                        <li className='list-group-item'>
-                            {todo.content}
-                        </li>
-                    </Link>
+                    <div>
+                        <Link to={`/todos/${todo.id}`} key={todo.id}>
+                            <li className='list-group-item'>
+                                {todo.content}
+                            </li>
+                        </Link>
+                        <button
+                            className='btn btn-danger'
+                            onClick={() => this.props.deleteTodo(todo.id)}
+                        >
+                            Delete Todo
+                        </button>
+                    </div>
                 ))}
             </div>
         )
@@ -66,6 +74,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     fetchTodos: () => dispatch(fetchTodos()),
     deleteTodos: () => dispatch(deleteAllTodos()),
+    deleteTodo: id => dispatch(deleteTodo(id)),
 });
 
 const TodosConnector = connect(

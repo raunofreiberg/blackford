@@ -51,7 +51,7 @@ module.exports = webpackMerge(commonConfig, {
             },
         }),
         new webpack.DefinePlugin({
-            'process.env.API_HOST': JSON.stringify('https://peaceful-river-36198.herokuapp.com'),
+            'process.env.API_HOST': JSON.stringify('https://still-crag-67682.herokuapp.com'),
         }),
         new webpack.optimize.UglifyJsPlugin({
             minimize: true,

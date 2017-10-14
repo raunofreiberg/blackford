@@ -9,7 +9,7 @@
     "server": "./node_modules/.bin/nodemon ./server/init.js",
     "heroku-postbuild": "webpack -p --config webpack/webpack.prod.js --progress --profile --color",
     "start": "NODE_ENV=production npm run server",
-    "prod": "webpack -p --config webpack/webpack.prod.js --progress --profile --color && npm run start",
+    "prod": "concurrently \"npm run migrate\" \"npm run start\" \"webpack -p --config webpack/webpack.prod.js --progress --profile --color\"",
     "migrate": "knex migrate:latest",
     "lint": "eslint client/ --ext .js --ext .jsx && eslint server/ --ext .js"
   },
@@ -40,7 +40,6 @@
     "cors": "^2.8.3",
     "css-loader": "^0.28.4",
     "dotenv": "^4.0.0",
-    "es6-promise": "^4.1.1",
     "express": "^4.15.3",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",

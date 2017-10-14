@@ -1,18 +1,16 @@
 const app = require('./server.js');
 const debug = require('debug')('blackford:server');
 const http = require('http');
-// uncomment if implementing socket.io
-// const io = require('../lib/io');
 
+// Get port from environment and store in Express
 const port = normalizePort(process.env.PORT || '3001');
 app.set('port', port);
 
+// Create HTTP server
 const server = http.createServer(app);
 
-let listener = server.listen(port);
-// uncomment if implementing socket.io
-// io.attach(listener);
-
+// Listen on provided port
+app.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 

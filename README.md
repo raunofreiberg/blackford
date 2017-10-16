@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/raunofreiberg/blackford/badge.svg?branch=master)](https://coveralls.io/github/raunofreiberg/blackford?branch=master)
+
 # Full Stack React/Express
 
 #### Technologies Used

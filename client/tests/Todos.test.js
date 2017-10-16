@@ -1,3 +1,5 @@
-test('asd', () => {
-    expect(1).toBe(1);
+describe('#foo', () => {
+    it('passes', () => {
+        console.log('hello world');
+    });
 });

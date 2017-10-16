@@ -11,7 +11,10 @@
     "start": "NODE_ENV=production npm run server",
     "prod": "concurrently \"npm run migrate\" \"npm run start\" \"webpack -p --config webpack/webpack.prod.js --progress --profile --color\"",
     "migrate": "knex migrate:latest",
-    "lint": "eslint client/ --ext .js --ext .jsx && eslint server/ --ext .js"
+    "lint": "eslint client/ --ext .js --ext .jsx && eslint server/ --ext .js",
+    "test": "jest",
+    "cover": "istanbul cover jest --no-default-excludes",
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "keywords": [],
   "author": "",
@@ -74,6 +77,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.0.1",
+    "coveralls": "^3.0.0",
     "enzyme": "^3.1.0",
     "eslint": "^4.8.0",
     "eslint-config-airbnb": "^16.0.0",
@@ -81,6 +85,7 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
+    "istanbul": "^0.4.5",
     "jest": "^21.2.1"
   }
 }

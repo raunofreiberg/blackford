@@ -1,12 +1,13 @@
 const knex = require('../../../dbConnect');
 
 module.exports = {
-    insertPhoto: photo => knex('photos')
-        .insert({
-            iso: photo.iso,
-            aperture: photo.aperture,
-            lens: photo.lens,
-            img: photo.img,
-        }).returning('*'),
+    insertPhoto: ({ iso, aperture, lens, img }) =>
+        knex('photos')
+            .insert({
+                iso,
+                aperture,
+                lens,
+                img,
+            }).returning('*'),
     queryPhotos: () => knex('photos'),
 };

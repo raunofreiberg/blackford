@@ -60,4 +60,4 @@ function onListening() {
     debug('Listening on ' + bind);
 }
 
-scraper()
+//scraper()

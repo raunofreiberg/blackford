@@ -32,7 +32,7 @@ const setFetchedTodo = todo => ({ type: FETCH_TODO, todo });
 
 export const createTodo = (values, callback) => async () => {
     try {
-        await fetch(`${process.env.API_HOST}/api/todos`, {
+        await fetch(`${process.env.API_HOST}/api/photos`, {
             method: 'POST',
             headers: new Headers({ 'content-type': 'application/json' }),
             mode: 'cors',
@@ -46,7 +46,7 @@ export const createTodo = (values, callback) => async () => {
 
 export const deleteTodo = id => async (dispatch) => {
     try {
-        let res = await fetch(`${process.env.API_HOST}/api/todos/${id}`, {
+        let res = await fetch(`${process.env.API_HOST}/api/photos/${id}`, {
             method: 'DELETE',
             headers: new Headers({ 'content-type': 'application/json' }),
             mode: 'cors',
@@ -60,7 +60,7 @@ export const deleteTodo = id => async (dispatch) => {
 
 export const deleteAllTodos = () => (dispatch) => {
     try {
-        fetch(`${process.env.API_HOST}/api/todos/`, {
+        fetch(`${process.env.API_HOST}/api/photos/`, {
             method: 'DELETE',
             headers: new Headers({ 'content-type': 'application/json' }),
             mode: 'cors',
@@ -74,7 +74,7 @@ export const deleteAllTodos = () => (dispatch) => {
 
 export const editTodo = (id, values, callback) => async () => {
     try {
-        await fetch(`${process.env.API_HOST}/api/todos/${id}`, {
+        await fetch(`${process.env.API_HOST}/api/photos/${id}`, {
             method: 'PUT',
             headers: new Headers({ 'content-type': 'application/json ' }),
             mode: 'cors',
@@ -88,7 +88,7 @@ export const editTodo = (id, values, callback) => async () => {
 
 export const fetchTodo = id => (dispatch) => {
     try {
-        fetch(`${process.env.API_HOST}/api/todos/${id}`)
+        fetch(`${process.env.API_HOST}/api/photos/${id}`)
             .then(res => res.json())
             .then(data => dispatch(setFetchedTodo(data.todo)));
     } catch (e) {
@@ -98,7 +98,7 @@ export const fetchTodo = id => (dispatch) => {
 
 export const fetchTodos = () => (dispatch) => {
     try {
-        fetch(`${process.env.API_HOST}/api/todos`)
+        fetch(`${process.env.API_HOST}/api/photos`)
             .then(res => res.json())
             .then(data => dispatch(setTodos(data.todos)));
     } catch (e) {

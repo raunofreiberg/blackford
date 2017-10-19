@@ -1,15 +1,15 @@
-const fetchTodos = require('../actions/fetchTodos.js');
+const { insertPhoto } = require('../models/photos.js');
 
 module.exports = (req, res) => {
-    fetchTodos(req, res)
-        .then((todos) => {
+    insertPhoto(req, res)
+        .then((photo) => {
             res.status(200).json({
-                todos,
+                photo,
             });
         })
         .catch((err) => {
             res.status(500).json({
-                error: 'An error occurred when fetching all todos.',
+                error: 'An error occurred when adding a photo.',
                 reason: err,
             });
         });

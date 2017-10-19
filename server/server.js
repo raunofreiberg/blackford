@@ -9,7 +9,7 @@ const cors = require('cors');
 const helpers = require('../helpers');
 const dev = process.env.NODE_ENV === 'development';
 
-const todos = require('./components/todos/todos');
+const routes = require('./components/todos/routes');
 
 const app = express();
 
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(dev ? helpers.root('client') : helpers.root('dist')));
 app.use(cookieParser());
 
-app.use('/api/todos', todos);
+app.use('/api/photos', routes);
 
 app.all('*', (req, res, next) => {
     res.sendFile('index.html', {

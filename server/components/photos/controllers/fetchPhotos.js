@@ -1,15 +1,15 @@
-const createTodo = require('../actions/createTodo.js');
+const { queryPhotos } = require('../models/photos.js');
 
 module.exports = (req, res) => {
-    createTodo(req, res)
-        .then((todo) => {
+    queryPhotos(req, res)
+        .then((photos) => {
             res.status(200).json({
-                todo,
+                photos,
             });
         })
         .catch((err) => {
             res.status(500).json({
-                error: 'An error occurred when adding a todo.',
+                error: 'An error occurred when fetching all photos.',
                 reason: err,
             });
         });

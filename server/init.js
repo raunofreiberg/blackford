@@ -1,6 +1,7 @@
 const app = require('./server.js');
 const debug = require('debug')('blackford:server');
 const http = require('http');
+const scraper = require('./components/photos/scraper.js');
 
 // Get port from environment and store in Express
 const port = normalizePort(process.env.PORT || '3001');
@@ -58,3 +59,5 @@ function onListening() {
         : 'port ' + addr.port;
     debug('Listening on ' + bind);
 }
+
+scraper()

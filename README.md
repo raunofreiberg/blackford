@@ -5,16 +5,17 @@
 
 #### Technologies Used
 
+- NodeJS
+- ExpressJS
+- KnexJS
+- PostgreSQL
+- Docker
 - React
 - Redux
 - React-Router 4
 - Redux-Form 6
 - SCSS
 - Webpack 2
-- NodeJS
-- ExpressJS
-- KnexJS
-- PostgreSQL
 
 
 #### Setup

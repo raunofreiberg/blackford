@@ -5,11 +5,14 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
+const passport = require('passport');
+const session = require('express-session');
 const cors = require('cors');
 const helpers = require('../helpers');
 const dev = process.env.NODE_ENV === 'development';
 
-const routes = require('./components/todos/routes');
+const apiRoutes = require('./routes');
+const authRoutes = require('./components/auth/authRoutes');
 
 const app = express();
 
@@ -18,17 +21,29 @@ app.use(logger('dev'));
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: false
+    extended: false,
 }));
 
 app.use(express.static(dev ? helpers.root('client') : helpers.root('dist')));
 app.use(cookieParser());
+app.use(session({
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: false,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.use('/api/photos', routes);
+app.use('/api/photos', apiRoutes);
+app.use('/auth', authRoutes);
+
+const knex = require('./dbConnect');
+knex('users')
+    .then(x => console.log('asd', x))
 
 app.all('*', (req, res, next) => {
     res.sendFile('index.html', {
-        root: dev ? helpers.root('client') : helpers.root('dist')
+        root: dev ? helpers.root('client') : helpers.root('dist'),
     });
 });
 

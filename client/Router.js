@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
 import TodosNew from './components/TodosNew/TodosNew';
+import Register from './components/Register';
 import TodoShow from './components/TodoShow/TodoShow';
 import Todos from './components/Todos/Todos';
 
@@ -10,6 +11,7 @@ const Router = () => (
         <div>
             <Switch>
                 <Route path="/todos/new" component={TodosNew} />
+                <Route path="/register" component={Register} />
                 <Route path="/todos/:id" component={TodoShow} />
                 <Route exact path="/" component={Todos} />
                 <Redirect from="*" to="/" />

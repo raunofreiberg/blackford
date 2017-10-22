@@ -30,15 +30,33 @@ export default function todoReducer(state = initialState, action) {
 const setTodos = todos => ({ type: SET_TODOS, todos });
 const setFetchedTodo = todo => ({ type: FETCH_TODO, todo });
 
-export const createTodo = (values, callback) => async () => {
+// export const createTodo = (values, callback) => async () => {
+//     try {
+//         await fetch(`${process.env.API_HOST}/api/photos`, {
+//             method: 'POST',
+//             headers: new Headers({ 'content-type': 'application/json' }),
+//             mode: 'cors',
+//             body: JSON.stringify(values),
+//         });
+//         await callback();
+//     } catch (e) {
+//         console.log(e);
+//     }
+// };
+
+export const createTodo = (callback) => async () => {
+    const values = {
+        username: '2 test2131121srs',
+        password: '123',
+    };
+
     try {
-        await fetch(`${process.env.API_HOST}/api/photos`, {
+        await fetch(`${process.env.API_HOST}/auth/register`, {
             method: 'POST',
             headers: new Headers({ 'content-type': 'application/json' }),
             mode: 'cors',
             body: JSON.stringify(values),
-        });
-        await callback();
+        }).then(x => x.json()).then(z => console.log(z))
     } catch (e) {
         console.log(e);
     }

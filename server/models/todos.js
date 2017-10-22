@@ -13,7 +13,7 @@ module.exports = {
                 id: req.params.id,
             })
             .del()
-            .returning('*')
+            .then(() => knex('todos'))
     ),
     editTodo: req => (
         knex('todos')

@@ -18,7 +18,7 @@ app.use(logger('dev'));
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: false
+    extended: false,
 }));
 
 app.use(express.static(dev ? helpers.root('client') : helpers.root('dist')));
@@ -28,7 +28,7 @@ app.use('/api/todos', apiRoutes);
 
 app.all('*', (req, res, next) => {
     res.sendFile('index.html', {
-        root: dev ? helpers.root('client') : helpers.root('dist')
+        root: dev ? helpers.root('client') : helpers.root('dist'),
     });
 });
 

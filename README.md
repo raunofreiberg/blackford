@@ -23,13 +23,13 @@
 * Create a database
 
 ```
-$ createdb todos
+$ createdb DB_NAME
 ```
 
 * Create a .env file at the root of your application and update it with your DATABASE_URL containing the name of your database:
 
 ```
-DATABASE_URL=postgres://localhost/todos
+DATABASE_URL=postgres://localhost/DB_NAME
 ```
 
 * Install dependencies
@@ -50,16 +50,10 @@ $ npm install -g knex
 $ knex migrate:latest
 ```
 
-* Run the client in one terminal
+* Run the client and server concurrently
 
 ```
-$ npm run client
-```
-
-* Then in another run the server
-
-```
-$ npm run server
+$ npm run dev
 ```
 
 * You should be able to see the application at `localhost:8000`

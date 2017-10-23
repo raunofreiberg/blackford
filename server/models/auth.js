@@ -14,4 +14,5 @@ module.exports = {
             .returning('*');
     },
     queryUsers: () => knex('users'),
+    queryUser: username => knex('users').where({ username }).first(),
 };

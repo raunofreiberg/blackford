@@ -20,14 +20,15 @@ const setUser = user => ({ type: SET_USER, user });
 
 export const createUser = values => async (dispatch) => {
     try {
-        let user = await fetch(`${process.env.API_HOST}/auth/register`, {
+        let res = await fetch(`${process.env.API_HOST}/auth/register`, {
             method: 'POST',
             headers: new Headers({ 'content-type': 'application/json' }),
             mode: 'cors',
             body: JSON.stringify(values),
         });
-        user = await user.json();
-        await dispatch(setUser(user.user[0]));
+        res = await res.json();
+        // await dispatch(setUser(res.user));
+        await localStorage.setItem('token', res.token);
     } catch (e) {
         console.log(e);
     }

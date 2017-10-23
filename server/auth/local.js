@@ -1,26 +1,24 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const moment = require('moment');
+const jwt = require('jwt-simple');
 
-const init = require('./passport');
-const knex = require('../dbConnect');
-const comparePass = require('./utils');
+function encodeToken(user) {
+    const playload = {
+        exp: moment().add(14, 'days').unix(),
+        iat: moment().unix(),
+        sub: user.id,
+    };
+    return jwt.encode(playload, process.env.TOKEN_SECRET);
+}
 
-const options = {};
+function decodeToken(token, callback) {
+    const payload = jwt.decode(token, process.env.TOKEN_SECRET);
+    const now = moment().unix();
+    // check if the token has expired
+    if (now > payload.exp) callback('Token has expired.');
+    else callback(null, payload);
+}
 
-init();
-
-passport.use(new LocalStrategy(options, (username, password, done) => {
-    // check to see if the username exists
-    knex('users').where({ username }).first()
-        .then((user) => {
-            if (!user) return done(null, false);
-            if (!comparePass(password, user.password)) {
-                return done(null, false);
-            } else {
-                return done(null, user);
-            }
-        })
-        .catch(err => done(err));
-}));
-
-module.exports = passport;
+module.exports = {
+    encodeToken,
+    decodeToken,
+};

@@ -5,11 +5,14 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
+const passport = require('passport');
+const session = require('express-session');
 const cors = require('cors');
 const helpers = require('../helpers');
 const dev = process.env.NODE_ENV === 'development';
 
 const apiRoutes = require('./apiRoutes');
+const authRoutes = require('./authRoutes');
 
 const app = express();
 
@@ -24,7 +27,20 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(dev ? helpers.root('client') : helpers.root('dist')));
 app.use(cookieParser());
 
+app.use(session({
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: false,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/api/todos', apiRoutes);
+app.use('/auth', authRoutes);
+
+const knex = require('./dbConnect');
+knex('users')
+    .then(x => console.log(x))
 
 app.all('*', (req, res, next) => {
     res.sendFile('index.html', {

@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
-import { createUser } from '../../ducks/user';
+import { logUserIn } from '../../ducks/user';
 
-class Register extends React.Component {
+class Login extends React.Component {
     onSubmit(values) {
-        this.props.createUser(values, () => {
+        this.props.logUserIn(values, () => {
             this.props.history.push('/');
         });
     }
@@ -33,7 +33,7 @@ class Register extends React.Component {
 
         return (
             <div className="todos-new">
-                <h3>Register</h3>
+                <h3>Login</h3>
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                     <Field name="username" label="Username" component={this.renderField} />
                     <Field name="password" type="password" label="Password" component={this.renderField} />
@@ -43,8 +43,8 @@ class Register extends React.Component {
                     <Link to="/" className="btn btn-danger margin-left-sm">
                         Cancel
                     </Link>
-                    <Link to="/login" className="btn btn-default margin-left-sm">
-                        Login
+                    <Link to="/register" className="btn btn-default margin-left-sm">
+                        Register
                     </Link>
                 </form>
             </div>
@@ -64,5 +64,5 @@ function validate(values) {
 
 export default reduxForm({
     validate,
-    form: 'RegisterForm',
-})(connect(null, { createUser })(Register));
+    form: 'LoginForm',
+})(connect(null, { logUserIn })(Login));

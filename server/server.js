@@ -13,6 +13,7 @@ const dev = process.env.NODE_ENV === 'development';
 
 const apiRoutes = require('./apiRoutes');
 const authRoutes = require('./authRoutes');
+const { ensureAuthenticated } = require('./auth/utils');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(cookieParser());
 
 app.use(passport.initialize());
 
+app.use('/api/todos', ensureAuthenticated)
 app.use('/api/todos', apiRoutes);
 app.use('/auth', authRoutes);
 

@@ -1,3 +1,5 @@
+import history from '../history';
+
 const FETCH_TODO = 'FETCH_TODO';
 const SET_TODOS = 'SET_TODOS';
 
@@ -30,33 +32,18 @@ export default function todoReducer(state = initialState, action) {
 const setTodos = todos => ({ type: SET_TODOS, todos });
 const setFetchedTodo = todo => ({ type: FETCH_TODO, todo });
 
-// export const createTodo = (values, callback) => async () => {
-//     try {
-//         await fetch(`${process.env.API_HOST}/api/todos`, {
-//             method: 'POST',
-//             headers: new Headers({ 'content-type': 'application/json' }),
-//             mode: 'cors',
-//             body: JSON.stringify(values),
-//         });
-//         await callback();
-//     } catch (e) {
-//         console.log(e);
-//     }
-// };
-
-export const createTodo = (callback) => async () => {
-    const values = {
-        username: 'Rauno',
-        password: '123',
-    };
-
+export const createTodo = values => async () => {
     try {
-        await fetch(`${process.env.API_HOST}/auth/register`, {
+        await fetch(`${process.env.API_HOST}/api/todos`, {
             method: 'POST',
-            headers: new Headers({ 'content-type': 'application/json' }),
+            headers: new Headers({
+                'content-type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            }),
             mode: 'cors',
             body: JSON.stringify(values),
         });
+        history.push('/todos');
     } catch (e) {
         console.log(e);
     }
@@ -66,7 +53,10 @@ export const deleteTodo = id => async (dispatch) => {
     try {
         let res = await fetch(`${process.env.API_HOST}/api/todos/${id}`, {
             method: 'DELETE',
-            headers: new Headers({ 'content-type': 'application/json' }),
+            headers: new Headers({
+                'content-type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            }),
             mode: 'cors',
         });
         res = await res.json();
@@ -80,7 +70,10 @@ export const deleteAllTodos = () => (dispatch) => {
     try {
         fetch(`${process.env.API_HOST}/api/todos/`, {
             method: 'DELETE',
-            headers: new Headers({ 'content-type': 'application/json' }),
+            headers: new Headers({
+                'content-type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            }),
             mode: 'cors',
         })
             .then(res => res.json())
@@ -116,7 +109,14 @@ export const fetchTodo = id => (dispatch) => {
 
 export const fetchTodos = () => (dispatch) => {
     try {
-        fetch(`${process.env.API_HOST}/api/todos`)
+        fetch(`${process.env.API_HOST}/api/todos/`, {
+            method: 'GET',
+            headers: new Headers({
+                'content-type': 'application/json ',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            }),
+            mode: 'cors',
+        })
             .then(res => res.json())
             .then(data => dispatch(setTodos(data.todos)));
     } catch (e) {

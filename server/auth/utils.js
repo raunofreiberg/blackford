@@ -8,7 +8,7 @@ exports.comparePass = (userPassword, dbPassword) => bcrypt.compareSync(userPassw
 exports.ensureAuthenticated = (req, res, next) => {
     if (!(req.headers && req.headers.authorization)) {
         return res.status(400).json({
-            status: 'Please log in',
+            status: 'User is not logged in.',
         });
     }
     // decode the token
@@ -17,17 +17,18 @@ exports.ensureAuthenticated = (req, res, next) => {
     decodeToken(token, (err, payload) => {
         if (err) {
             return res.status(401).json({
-                status: 'Token has expired',
+                status: 'Token has expired.',
             });
         } else {
             // check if the user still exists in the db
             return knex('users').where({ id: parseInt(payload.sub, 10) }).first()
                 .then((user) => {
-                    next();
+                    return next();
                 })
                 .catch((err) => {
                     res.status(500).json({
                         status: 'error',
+                        reason: err,
                     });
                 });
         }

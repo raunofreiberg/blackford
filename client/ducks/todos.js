@@ -43,7 +43,7 @@ export const createTodo = values => async () => {
             mode: 'cors',
             body: JSON.stringify(values),
         });
-        history.push('/todos');
+        history.push('/');
     } catch (e) {
         console.log(e);
     }

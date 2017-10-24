@@ -63,7 +63,7 @@ class CustomRouter extends React.Component {
                             exact
                             path="/"
                             component={Todos}
-                            isAuthorized={this.props.isAuthorized}
+                            isAuthorized={Auth.isUserAuthenticated()}
                             redirectPath="/login"
                         />
                     </Switch>

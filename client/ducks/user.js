@@ -27,7 +27,7 @@ export default function userReducer(state = initialState, action) {
 }
 
 const setUser = user => ({ type: SET_USER, user });
-const setAuthorized = status => ({ type: SET_AUTHORIZED, status });
+export const setAuthorized = status => ({ type: SET_AUTHORIZED, status });
 
 export const createUser = values => async (dispatch) => {
     try {
@@ -40,6 +40,7 @@ export const createUser = values => async (dispatch) => {
         res = await res.json();
         await localStorage.setItem('token', res.token);
         await dispatch(setAuthorized(true));
+        history.push('/');
     } catch (e) {
         console.log(e);
     }
@@ -57,7 +58,7 @@ export const logUserIn = values => async (dispatch) => {
         if (res.token) {
             localStorage.setItem('token', res.token);
             dispatch(setAuthorized(true));
-            history.push('/todos');
+            history.push('/');
         }
     } catch (e) {
         console.log(e);

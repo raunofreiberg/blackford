@@ -18,7 +18,7 @@ class Navbar extends React.Component {
                         <span className="navbar-username">TODO</span>
                         : ''
                     }
-                    <span className="navbar-app">Bloomfield</span>
+                    <span className="navbar-app">Blackford</span>
                     {this.props.isAuthorized ?
                         <button className="navbar-btn" onClick={() => this.props.onLogout()}>Log out</button>
                         : ''

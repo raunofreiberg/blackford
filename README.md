@@ -10,6 +10,7 @@
 - KnexJS
 - PostgreSQL
 - Docker
+- PassportJS with JWT for authentication
 - React
 - Redux
 - React-Router 4

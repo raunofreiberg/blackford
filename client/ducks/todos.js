@@ -1,4 +1,5 @@
 import history from '../history';
+import Auth from '../modules/Auth';
 
 const FETCH_TODO = 'FETCH_TODO';
 const SET_TODOS = 'SET_TODOS';
@@ -14,7 +15,6 @@ const initialState = {
 export default function todoReducer(state = initialState, action) {
     switch (action.type) {
         case SET_TODOS:
-            console.log('#####', action);
             return {
                 ...state,
                 todos: action.todos,
@@ -38,7 +38,7 @@ export const createTodo = values => async () => {
             method: 'POST',
             headers: new Headers({
                 'content-type': 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                Authorization: `Bearer ${Auth.getToken()}`,
             }),
             mode: 'cors',
             body: JSON.stringify(values),
@@ -55,7 +55,7 @@ export const deleteTodo = id => async (dispatch) => {
             method: 'DELETE',
             headers: new Headers({
                 'content-type': 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                Authorization: `Bearer ${Auth.getToken()}`,
             }),
             mode: 'cors',
         });
@@ -72,7 +72,7 @@ export const deleteAllTodos = () => (dispatch) => {
             method: 'DELETE',
             headers: new Headers({
                 'content-type': 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                Authorization: `Bearer ${Auth.getToken()}`,
             }),
             mode: 'cors',
         })
@@ -83,15 +83,18 @@ export const deleteAllTodos = () => (dispatch) => {
     }
 };
 
-export const editTodo = (id, values, callback) => async () => {
+export const editTodo = (id, values) => async () => {
     try {
         await fetch(`${process.env.API_HOST}/api/todos/${id}`, {
             method: 'PUT',
-            headers: new Headers({ 'content-type': 'application/json ' }),
+            headers: new Headers({
+                'content-type': 'application/json',
+                Authorization: `Bearer ${Auth.getToken()}`,
+            }),
             mode: 'cors',
             body: JSON.stringify(values),
         });
-        await callback();
+        history.push('/');
     } catch (e) {
         console.log(e);
     }
@@ -99,7 +102,14 @@ export const editTodo = (id, values, callback) => async () => {
 
 export const fetchTodo = id => (dispatch) => {
     try {
-        fetch(`${process.env.API_HOST}/api/todos/${id}`)
+        fetch(`${process.env.API_HOST}/api/todos/${id}`, {
+            method: 'GET',
+            headers: new Headers({
+                'content-type': 'application/json ',
+                Authorization: `Bearer ${Auth.getToken()}`,
+            }),
+            mode: 'cors',
+        })
             .then(res => res.json())
             .then(data => dispatch(setFetchedTodo(data.todo)));
     } catch (e) {
@@ -113,7 +123,7 @@ export const fetchTodos = () => (dispatch) => {
             method: 'GET',
             headers: new Headers({
                 'content-type': 'application/json ',
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                Authorization: `Bearer ${Auth.getToken()}`,
             }),
             mode: 'cors',
         })

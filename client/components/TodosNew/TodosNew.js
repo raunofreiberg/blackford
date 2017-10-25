@@ -6,9 +6,7 @@ import { createTodo } from '../../ducks/todos';
 
 class TodosNew extends React.Component {
     onSubmit(values) {
-        this.props.createTodo(values, () => {
-            this.props.history.push('/');
-        });
+        this.props.createTodo(values);
     }
 
     renderField(field) {

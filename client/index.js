@@ -5,11 +5,9 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 
-// uncomment if implementing socket.io import io from 'socket.io-client'; const
-// HOST = NODE_ENV === 'development' ? 'http://localhost:3000' :
-// window.location.origin; const socket = io.connect(HOST);
-
 import './sass/style.scss';
+import { setAuthorized } from './ducks/user';
+import Auth from './modules/Auth';
 import Router from './Router';
 import rootReducer from './reducers';
 
@@ -34,6 +32,10 @@ const createReduxStore = (reducer) => {
 };
 
 const store = createReduxStore(rootReducer);
+
+if (Auth.isUserAuthenticated()) {
+    store.dispatch(setAuthorized(true));
+}
 
 ReactDOM.render(
     <Provider store={store}>

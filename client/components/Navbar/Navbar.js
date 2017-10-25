@@ -15,7 +15,7 @@ class Navbar extends React.Component {
             <div className="navbar__container">
                 <nav className="navbar navbar-default">
                     {this.props.isAuthorized ?
-                        <span className="navbar-username">TODO</span>
+                        <span className="navbar-username">{this.props.user.name}</span>
                         : ''
                     }
                     <span className="navbar-app">Blackford</span>
@@ -31,6 +31,7 @@ class Navbar extends React.Component {
 
 const mapStateToProps = state => ({
     isAuthorized: state.user.isAuthorized,
+    user: state.user.user,
 });
 
 const mapDispatchToProps = dispatch => ({

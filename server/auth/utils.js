@@ -23,7 +23,8 @@ exports.ensureAuthenticated = (req, res, next) => {
             // check if the user still exists in the db
             return knex('users').where({ id: parseInt(payload.sub, 10) }).first()
                 .then((user) => {
-                    return next();
+                    next();
+                    return user;
                 })
                 .catch((err) => {
                     res.status(500).json({

@@ -9,7 +9,9 @@ exports.createUser = async (req, res) => {
         await res.status(200).json({
             status: 'success',
             token,
-            username: user.username,
+            user: {
+                name: user[0].username,
+            },
         });
     } catch (err) {
         res.status(500).json({
@@ -38,6 +40,9 @@ exports.logUserIn = async (req, res) => {
             res.status(200).json({
                 status: 'success',
                 token,
+                user: {
+                    name: user.username,
+                },
             });
         } else {
             res.status(403).json({

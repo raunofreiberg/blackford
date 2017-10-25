@@ -5,7 +5,10 @@ const SET_USER = 'SET_USER';
 const SET_AUTHORIZED = 'SET_AUTHORIZED';
 
 const initialState = {
-    user: {},
+    user: {
+        id: null,
+        name: 'Unknown',
+    },
     isAuthorized: false,
 };
 
@@ -26,7 +29,7 @@ export default function userReducer(state = initialState, action) {
     }
 }
 
-const setUser = user => ({ type: SET_USER, user });
+export const setUser = user => ({ type: SET_USER, user });
 export const setAuthorized = status => ({ type: SET_AUTHORIZED, status });
 
 export const createUser = values => async (dispatch) => {
@@ -38,9 +41,12 @@ export const createUser = values => async (dispatch) => {
             body: JSON.stringify(values),
         });
         res = await res.json();
-        await localStorage.setItem('token', res.token);
-        await dispatch(setAuthorized(true));
-        history.push('/');
+        if (res.token) {
+            Auth.authenticateUser(res.token);
+            dispatch(setAuthorized(true));
+            dispatch(setUser(res.user));
+            history.push('/');
+        }
     } catch (e) {
         console.log(e);
     }
@@ -56,8 +62,9 @@ export const logUserIn = values => async (dispatch) => {
         });
         res = await res.json();
         if (res.token) {
-            localStorage.setItem('token', res.token);
+            Auth.authenticateUser(res.token);
             dispatch(setAuthorized(true));
+            dispatch(setUser(res.user));
             history.push('/');
         }
     } catch (e) {
@@ -65,7 +72,7 @@ export const logUserIn = values => async (dispatch) => {
     }
 };
 
-export const logUserOut = () => async (dispatch) => {
+export const logUserOut = () => (dispatch) => {
     try {
         Auth.deauthenticateUser();
         dispatch(setAuthorized(false));

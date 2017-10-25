@@ -4,9 +4,10 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
+import jwtDecode from 'jwt-decode';
 
 import './sass/style.scss';
-import { setAuthorized } from './ducks/user';
+import { setAuthorized, setUser } from './ducks/user';
 import Auth from './modules/Auth';
 import Router from './Router';
 import rootReducer from './reducers';
@@ -34,7 +35,15 @@ const createReduxStore = (reducer) => {
 const store = createReduxStore(rootReducer);
 
 if (Auth.isUserAuthenticated()) {
+    const token = Auth.getToken();
+    const decoded = jwtDecode(token);
+    const user = {
+        id: decoded.sub,
+        name: decoded.name,
+    };
+
     store.dispatch(setAuthorized(true));
+    store.dispatch(setUser(user));
 }
 
 ReactDOM.render(

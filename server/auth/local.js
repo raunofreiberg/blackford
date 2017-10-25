@@ -6,6 +6,7 @@ function encodeToken(user) {
         exp: moment().add(14, 'days').unix(),
         iat: moment().unix(),
         sub: user.id,
+        name: user.username,
     };
     return jwt.encode(payload, process.env.TOKEN_SECRET);
 }

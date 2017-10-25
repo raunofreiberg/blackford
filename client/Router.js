@@ -1,14 +1,16 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 
+import Navbar from './components/Navbar/Navbar';
+import history from './history';
+
 import TodosNew from './components/TodosNew/TodosNew';
 import TodosShow from './components/TodoShow/TodoShow';
 import Todos from './components/Todos/Todos';
+
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
-import Navbar from './components/Navbar/Navbar';
 import RequireAuth from './components/Auth/RequireAuth';
-import history from './history';
 
 const AppRouter = () => (
     <Router history={history}>

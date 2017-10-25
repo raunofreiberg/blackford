@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const passport = require('passport');
-//const session = require('express-session');
 const cors = require('cors');
 const helpers = require('../helpers');
 const dev = process.env.NODE_ENV === 'development';
@@ -30,7 +29,7 @@ app.use(cookieParser());
 
 app.use(passport.initialize());
 
-app.use('/api/todos', ensureAuthenticated)
+app.use('/api/todos', ensureAuthenticated);
 app.use('/api/todos', apiRoutes);
 app.use('/auth', authRoutes);
 

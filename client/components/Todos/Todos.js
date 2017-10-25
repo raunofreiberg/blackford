@@ -10,14 +10,16 @@ class Todos extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.fetchTodos();
+        if (this.props.isAuthorized) {
+            this.props.fetchTodos();
+        }
     }
 
     renderTodos() {
         return (
             <div>
                 {this.props.todos.map(todo => (
-                    <div>
+                    <div key={todo.id}>
                         <Link to={`/todos/${todo.id}`} key={todo.id}>
                             <li className="list-group-item">
                                 {todo.content}
@@ -69,6 +71,7 @@ class Todos extends PureComponent {
 
 const mapStateToProps = state => ({
     todos: state.todos.todos,
+    isAuthorized: state.user.isAuthorized,
 });
 
 const mapDispatchToProps = dispatch => ({

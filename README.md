@@ -31,7 +31,12 @@ $ createdb DB_NAME
 * Create a .env file at the root of your application and update it with your DATABASE_URL containing the name of your database:
 
 ```
-DATABASE_URL=postgres://localhost/DB_NAME
+DATABASE_URL=postgres://localhost/<DB_NAME>
+```
+
+* Also, add the TOKEN_SECRET for signing JWT tokens
+```
+TOKEN_SECRET=<SECRET>
 ```
 
 * Install dependencies

@@ -13,9 +13,11 @@ services:
       - db
     environment:
       - NODE_ENV=production
+      - TOKEN_SECRET=poop
       - DATABASE_URL=postgres://postgres@db:5432/postgres
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; npm run prod'
   db:
-    image: postgres:9.5
+    image: postgres
     ports:
       - "5432:5432"
     volumes:

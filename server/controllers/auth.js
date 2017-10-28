@@ -1,11 +1,11 @@
 const { insertUser, queryUser } = require('../models/auth');
-const { comparePass } = require('../auth/utils');
-const localAuth = require('../auth/local');
+const { comparePass, encodeToken } = require('../auth/utils');
 
 exports.createUser = async (req, res) => {
     try {
         const user = await insertUser(req);
-        const token = localAuth.encodeToken(user[0]);
+        const token = encodeToken(user[0]);
+
         await res.status(200).json({
             status: 'success',
             token,
@@ -36,7 +36,7 @@ exports.logUserIn = async (req, res) => {
         const arePasswordsEqual = comparePass(password, user.password);
 
         if (arePasswordsEqual) {
-            const token = localAuth.encodeToken(user);
+            const token = encodeToken(user);
             res.status(200).json({
                 status: 'success',
                 token,

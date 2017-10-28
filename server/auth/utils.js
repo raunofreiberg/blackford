@@ -1,7 +1,6 @@
 const bcrypt = require('bcryptjs');
 const knex = require('../dbConnect');
-
-const { decodeToken } = require('./local');
+const jwt = require('jsonwebtoken');
 
 exports.comparePass = (userPassword, dbPassword) => bcrypt.compareSync(userPassword, dbPassword);
 
@@ -14,25 +13,34 @@ exports.ensureAuthenticated = (req, res, next) => {
     // decode the token
     const header = req.headers.authorization.split(' ');
     const token = header[1];
-    decodeToken(token, (err, payload) => {
-        if (err) {
-            return res.status(401).json({
-                status: 'Token has expired.',
-            });
-        } else {
-            // check if the user still exists in the db
-            return knex('users').where({ id: parseInt(payload.sub, 10) }).first()
-                .then((user) => {
-                    next();
-                    return user;
-                })
-                .catch((err) => {
-                    res.status(500).json({
-                        status: 'error',
-                        reason: err,
-                    });
+    try {
+        const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+        return knex('users').where({ id: parseInt(decoded.sub, 10) }).first()
+            .then((user) => {
+                next();
+                return user;
+            })
+            .catch((err) => {
+                res.status(500).json({
+                    status: 'error',
+                    reason: err,
                 });
-        }
+            });
+    } catch (err) {
+        return res.status(401).json({
+            status: 'Token has expired.',
+        });
+    }
+};
+
+exports.encodeToken = (user) => {
+    const payload = {
+        sub: user.id,
+        name: user.username,
+    };
+
+    return jwt.sign(payload, process.env.TOKEN_SECRET, {
+        expiresIn: '14 days',
     });
 };
 

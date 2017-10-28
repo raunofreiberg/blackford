@@ -1,49 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import { createLogger } from 'redux-logger';
+import { error } from 'react-notification-system-redux';
 import jwtDecode from 'jwt-decode';
 
 import './sass/style.scss';
+import createReduxStore from './configureStore';
 import { setAuthorized, setUser } from './ducks/user';
 import Auth from './modules/Auth';
 import Router from './Router';
 import rootReducer from './reducers';
-
-const dev = process.env.NODE_ENV === 'development';
-
-const createReduxStore = (reducer) => {
-    /* eslint-disable */
-    const composeEnhancers =
-        typeof window === 'object' &&
-        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-            window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
-
-    /* eslint-enable */
-    const middleware = [];
-    dev ? middleware.push(thunk, createLogger()) : middleware.push(thunk);
-
-    const enhancer = composeEnhancers(
-        applyMiddleware(...middleware),
-    );
-
-    return createStore(reducer, enhancer);
-};
+import history from './history';
 
 const store = createReduxStore(rootReducer);
 
 if (Auth.isUserAuthenticated()) {
     const token = Auth.getToken();
-    const decoded = jwtDecode(token);
-    const user = {
-        id: decoded.sub,
-        name: decoded.name,
-    };
+    try {
+        const decoded = jwtDecode(token);
+        const user = {
+            id: decoded.sub,
+            name: decoded.name,
+        };
 
-    store.dispatch(setAuthorized(true));
-    store.dispatch(setUser(user));
+        store.dispatch(setAuthorized(true));
+        store.dispatch(setUser(user));
+    } catch (err) {
+        history.push('/login');
+        store.dispatch(error());
+    }
 }
 
 ReactDOM.render(

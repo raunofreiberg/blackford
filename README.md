@@ -63,6 +63,6 @@ $ knex migrate:latest
 $ npm run dev
 ```
 
-* You should be able to see the application at `localhost:8000`
+* You should be able to see the application at `localhost:8080`
 
 

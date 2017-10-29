@@ -85,7 +85,7 @@ export const logUserOut = () => (dispatch) => {
     try {
         Auth.deauthenticateUser();
         dispatch(setAuthorized(false));
-    } catch (e) {
-        console.log(e);
+    } catch (err) {
+        dispatch(error(getNotificationOptions(err.message)));
     }
 };

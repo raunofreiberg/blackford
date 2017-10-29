@@ -2,7 +2,7 @@ import { error } from 'react-notification-system-redux';
 
 import history from '../history';
 import getNotificationOptions from '../utils/notifications';
-import Auth from '../utils/Auth';
+import Auth from '../utils/authentication';
 
 const SET_USER = 'SET_USER';
 const SET_AUTHORIZED = 'SET_AUTHORIZED';

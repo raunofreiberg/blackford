@@ -28,7 +28,7 @@ class Auth {
     static isUserAuthenticated() {
         return this.getToken() !== null &&
                this.getToken() !== undefined;
-    };
+    }
 
     /**
      * Deauthenticate a user. Remove a token from Local Storage.

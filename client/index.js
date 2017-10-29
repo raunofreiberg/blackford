@@ -6,7 +6,7 @@ import './sass/style.scss';
 import createReduxStore from './configureStore';
 import Router from './Router';
 import rootReducer from './reducers';
-import Auth from './utils/Auth';
+import Auth from './utils/authentication';
 
 // Create Redux store
 const store = createReduxStore(rootReducer);

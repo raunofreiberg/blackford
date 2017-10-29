@@ -1,5 +1,5 @@
 import history from '../history';
-import Auth from '../modules/Auth';
+import Auth from '../utils/Auth';
 
 const FETCH_TODO = 'FETCH_TODO';
 const SET_TODOS = 'SET_TODOS';

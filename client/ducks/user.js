@@ -1,5 +1,8 @@
+import { error } from 'react-notification-system-redux';
+
 import history from '../history';
-import Auth from '../modules/Auth';
+import getNotificationOptions from '../utils/notifications';
+import Auth from '../utils/Auth';
 
 const SET_USER = 'SET_USER';
 const SET_AUTHORIZED = 'SET_AUTHORIZED';
@@ -41,14 +44,17 @@ export const createUser = values => async (dispatch) => {
             body: JSON.stringify(values),
         });
         res = await res.json();
+
         if (res.token) {
             Auth.authenticateUser(res.token);
             dispatch(setAuthorized(true));
             dispatch(setUser(res.user));
             history.push('/');
+        } else {
+            dispatch(error(getNotificationOptions(res.message)));
         }
-    } catch (e) {
-        console.log(e);
+    } catch (err) {
+        dispatch(error(getNotificationOptions(err.message)));
     }
 };
 
@@ -61,14 +67,17 @@ export const logUserIn = values => async (dispatch) => {
             body: JSON.stringify(values),
         });
         res = await res.json();
+
         if (res.token) {
             Auth.authenticateUser(res.token);
             dispatch(setAuthorized(true));
             dispatch(setUser(res.user));
             history.push('/');
+        } else {
+            dispatch(error(getNotificationOptions(res.message)));
         }
-    } catch (e) {
-        console.log(e);
+    } catch (err) {
+        dispatch(error(getNotificationOptions(err.message)));
     }
 };
 

@@ -6,33 +6,39 @@ import jwtDecode from 'jwt-decode';
 
 import './sass/style.scss';
 import createReduxStore from './configureStore';
-import { setAuthorized, setUser } from './ducks/user';
-import Auth from './modules/Auth';
 import Router from './Router';
 import rootReducer from './reducers';
-import history from './history';
+import { setAuthorized, setUser } from './ducks/user';
+import Auth from './utils/Auth';
+import getNotificationOptions from './utils/notifications';
 
 const store = createReduxStore(rootReducer);
 
-if (Auth.isUserAuthenticated()) {
-    const token = Auth.getToken();
-    try {
-        const decoded = jwtDecode(token);
-        const user = {
-            id: decoded.sub,
-            name: decoded.name,
-        };
+const ensureAuthenticated = () => {
+    if (Auth.isUserAuthenticated()) {
+        const token = Auth.getToken();
+        try {
+            const decoded = jwtDecode(token);
+            const user = {
+                id: decoded.sub,
+                name: decoded.name,
+            };
 
-        store.dispatch(setAuthorized(true));
-        store.dispatch(setUser(user));
-    } catch (err) {
-        history.push('/login');
-        store.dispatch(error());
+            store.dispatch(setAuthorized(true));
+            store.dispatch(setUser(user));
+        } catch (err) {
+            setTimeout(() => {
+                store.dispatch(error(getNotificationOptions(err.message)));
+            }, 200);
+        }
     }
-}
+};
+
+ensureAuthenticated();
+
 
 ReactDOM.render(
     <Provider store={store}>
-        <Router />
+        <Router/>
     </Provider>, document.getElementById('app'),
 );

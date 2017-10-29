@@ -10,7 +10,7 @@ exports.createTodo = (req, res) => {
         .catch((err) => {
             res.status(500).json({
                 error: 'An error occurred when adding a todo.',
-                reason: err,
+                message: err,
             });
         });
 };
@@ -25,7 +25,7 @@ exports.deleteTodo = (req, res) => {
         .catch((err) => {
             res.status(500).json({
                 error: 'An error occurred when deleting a todo.',
-                reason: err,
+                message: err,
             });
         });
 };
@@ -38,7 +38,7 @@ exports.deleteTodos = (req, res) => {
         .catch((err) => {
             res.status(500).json({
                 error: 'An error occurred when deleting a todo.',
-                reason: err,
+                message: err,
             });
         });
 };
@@ -53,7 +53,7 @@ exports.editTodo = (req, res) => {
         .catch((err) => {
             res.status(500).json({
                 error: 'An error occurred when editing a todo.',
-                reason: err,
+                message: err,
             });
         });
 };
@@ -68,7 +68,7 @@ exports.fetchTodo = (req, res) => {
         .catch((err) => {
             res.status(500).json({
                 error: 'An error occurred when fetching a todo.',
-                reason: err,
+                message: err,
             });
         });
 };
@@ -83,7 +83,7 @@ exports.fetchTodos = (req, res) => {
         .catch((err) => {
             res.status(500).json({
                 error: 'An error occurred when fetching all todos.',
-                reason: err,
+                message: err,
             });
         });
 };

@@ -14,10 +14,17 @@ exports.createUser = async (req, res) => {
             },
         });
     } catch (err) {
-        res.status(500).json({
-            status: 'error',
-            reason: err,
-        });
+        if (err.code === "23505") {
+            res.status(500).json({
+                status: 'error',
+                message: 'User already exists',
+            });
+        } else {
+            res.status(500).json({
+                status: 'error',
+                message: err,
+            });
+        }
     }
 };
 
@@ -29,7 +36,7 @@ exports.logUserIn = async (req, res) => {
         if (!user) {
             res.status(500).json({
                 status: 'error',
-                reason: 'User not found',
+                message: 'User not found',
             });
         }
 
@@ -47,13 +54,13 @@ exports.logUserIn = async (req, res) => {
         } else {
             res.status(403).json({
                 status: 'error',
-                reason: 'Incorrect password',
+                message: 'Incorrect password',
             });
         }
     } catch (err) {
         res.status(500).json({
             status: 'error',
-            reason: err,
+            message: err,
         });
     }
 };

@@ -72,6 +72,11 @@ export const logUserIn = values => handleAuthentication('login', values);
 
 export const logUserOut = () => (dispatch) => {
     try {
+        FB.getLoginStatus((res) => {
+            if (res.status === 'connected') {
+                FB.logout();
+            }
+        });
         Auth.deauthenticateUser();
         dispatch(setAuthorized(false));
     } catch (err) {

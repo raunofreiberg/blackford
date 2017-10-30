@@ -12,6 +12,7 @@ const initialState = {
     user: {
         id: null,
         name: 'Unknown',
+        avatar: null,
     },
     isAuthorized: false,
 };
@@ -80,12 +81,12 @@ export const logUserOut = () => (dispatch) => {
 
 export const facebookLogin = () => (dispatch) => {
     try {
-        FB.login((res) => {
+        FB.login((result) => {
             fetch(`${process.env.API_HOST}/auth/facebook/`, {
                 method: 'POST',
                 headers: new Headers({
                     'content-type': 'application/json',
-                    Authorization: `Bearer ${res.authResponse.accessToken}`,
+                    Authorization: `Bearer ${result.authResponse.accessToken}`,
                 }),
                 mode: 'cors',
             })
@@ -99,6 +100,7 @@ export const facebookLogin = () => (dispatch) => {
                         dispatch(setUser({
                             id: decoded.sub,
                             name: decoded.name,
+                            avatar: decoded.avatar,
                         }));
                         history.push('/');
                     } else {

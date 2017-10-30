@@ -37,6 +37,7 @@ exports.encodeToken = (user) => {
     const payload = {
         sub: user.id,
         name: user.username,
+        avatar: user.avatar,
     };
 
     return jwt.sign(payload, process.env.TOKEN_SECRET, {

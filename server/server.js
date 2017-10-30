@@ -34,8 +34,8 @@ app.use('/api/todos', ensureAuthenticated);
 app.use('/api/todos', apiRoutes);
 app.use('/auth', authRoutes);
 
-// queryUsers()
-//     .then(x => console.log(x))
+queryUsers()
+    .then(x => console.log(x))
 
 app.all('*', (req, res, next) => {
     res.sendFile('index.html', {

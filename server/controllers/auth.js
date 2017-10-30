@@ -28,6 +28,7 @@ exports.createUser = async (req, res) => {
 exports.logUserIn = async (req, res) => {
     const { username, password } = req.body;
 
+    // TODO: validate form on client side so username & password are never empty.
     try {
         const user = await queryUser(username);
         if (!user) {
@@ -64,6 +65,7 @@ exports.loginFacebook = (req, res) => {
         const token = encodeToken({
             username: req.user.username,
             id: req.user.id,
+            avatar: req.user.avatar,
         });
 
         res.status(200).json({

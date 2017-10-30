@@ -1,14 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
+
 import { logUserIn, facebookLogin } from '../../ducks/user';
 
 class Login extends React.Component {
+    static propTypes = {
+        logUserIn: PropTypes.func.isRequired,
+        handleSubmit: PropTypes.func.isRequired,
+        facebookLogin: PropTypes.func.isRequired,
+    };
+
     onSubmit(values) {
-        this.props.logUserIn(values, () => {
-            this.props.history.push('/');
-        });
+        this.props.logUserIn(values);
     }
 
     renderField(field) {
@@ -35,8 +41,8 @@ class Login extends React.Component {
             <div className="todos-new">
                 <h3>Login</h3>
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                    <Field name="username" label="Username" component={this.renderField} />
-                    <Field name="password" type="password" label="Password" component={this.renderField} />
+                    <Field name="username" label="Username" component={this.renderField}/>
+                    <Field name="password" type="password" label="Password" component={this.renderField}/>
                     <button type="submit" className="btn btn-primary">
                         Submit
                     </button>

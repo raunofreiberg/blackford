@@ -13,12 +13,18 @@ module.exports = {
             })
             .returning('*');
     },
-    insertFbUser: (username, profileId) => {
+    /**
+     * @param username {string} - Facebook displayName
+     * @param profileId {string} - Facebook profile ID
+     * @param avatar {string} - Facebook profile picture
+     */
+    insertFbUser: (username, profileId, avatar) => {
         return knex('users')
             .insert({
                 username,
                 profile_id: profileId,
                 password: '',
+                avatar,
             })
             .returning('*');
     },

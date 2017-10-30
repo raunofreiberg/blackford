@@ -1,14 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
+
 import { createUser } from '../../ducks/user';
 
 class Register extends React.Component {
+    static propTypes = {
+        createUser: PropTypes.func.isRequired,
+        handleSubmit: PropTypes.func.isRequired,
+    };
+
     onSubmit(values) {
-        this.props.createUser(values, () => {
-            this.props.history.push('/');
-        });
+        this.props.createUser(values);
     }
 
     renderField(field) {
@@ -35,8 +40,8 @@ class Register extends React.Component {
             <div className="todos-new">
                 <h3>Register</h3>
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                    <Field name="username" label="Username" component={this.renderField} />
-                    <Field name="password" type="password" label="Password" component={this.renderField} />
+                    <Field name="username" label="Username" component={this.renderField}/>
+                    <Field name="password" type="password" label="Password" component={this.renderField}/>
                     <button type="submit" className="btn btn-primary">
                         Submit
                     </button>

@@ -14,8 +14,17 @@ const store = createReduxStore(rootReducer);
 // Authentication JWT middleware
 Auth.ensureAuthenticated(store);
 
+// Init FB login
+FB.init({
+    appId: '1728869704086428',
+    status: false,
+    cookie: false,
+    xfbml: false,
+    version: 'v2.8',
+});
+
 ReactDOM.render(
     <Provider store={store}>
-        <Router />
+        <Router/>
     </Provider>, document.getElementById('app'),
 );

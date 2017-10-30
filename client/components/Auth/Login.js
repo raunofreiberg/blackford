@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
-import { logUserIn } from '../../ducks/user';
+import { logUserIn, facebookLogin } from '../../ducks/user';
 
 class Login extends React.Component {
     onSubmit(values) {
@@ -47,6 +47,7 @@ class Login extends React.Component {
                         Register
                     </Link>
                 </form>
+                <button className="btn btn-secondary" onClick={this.props.facebookLogin}>Facebook login</button>
             </div>
         );
     }
@@ -65,4 +66,4 @@ function validate(values) {
 export default reduxForm({
     validate,
     form: 'LoginForm',
-})(connect(null, { logUserIn })(Login));
+})(connect(null, { logUserIn, facebookLogin })(Login));

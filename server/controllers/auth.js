@@ -9,9 +9,6 @@ exports.createUser = async (req, res) => {
         await res.status(200).json({
             status: 'success',
             token,
-            user: {
-                name: user[0].username,
-            },
         });
     } catch (err) {
         if (err.code === "23505") {
@@ -47,9 +44,6 @@ exports.logUserIn = async (req, res) => {
             res.status(200).json({
                 status: 'success',
                 token,
-                user: {
-                    name: user.username,
-                },
             });
         } else {
             res.status(403).json({
@@ -57,6 +51,25 @@ exports.logUserIn = async (req, res) => {
                 message: 'Incorrect password',
             });
         }
+    } catch (err) {
+        res.status(500).json({
+            status: 'error',
+            message: err,
+        });
+    }
+};
+
+exports.loginFacebook = (req, res) => {
+    try {
+        const token = encodeToken({
+            username: req.user.username,
+            id: req.user.id,
+        });
+
+        res.status(200).json({
+            status: 'success',
+            token,
+        });
     } catch (err) {
         res.status(500).json({
             status: 'error',

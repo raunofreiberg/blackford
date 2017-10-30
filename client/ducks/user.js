@@ -1,4 +1,5 @@
 import { error } from 'react-notification-system-redux';
+import jwtDecode from 'jwt-decode';
 
 import history from '../history';
 import getNotificationOptions from '../utils/notifications';
@@ -35,9 +36,9 @@ export default function userReducer(state = initialState, action) {
 export const setUser = user => ({ type: SET_USER, user });
 export const setAuthorized = status => ({ type: SET_AUTHORIZED, status });
 
-export const createUser = values => async (dispatch) => {
+const handleAuthentication = (path, values) => async (dispatch) => {
     try {
-        let res = await fetch(`${process.env.API_HOST}/auth/register`, {
+        let res = await fetch(`${process.env.API_HOST}/auth/${path}`, {
             method: 'POST',
             headers: new Headers({ 'content-type': 'application/json' }),
             mode: 'cors',
@@ -46,9 +47,16 @@ export const createUser = values => async (dispatch) => {
         res = await res.json();
 
         if (res.token) {
+            const decoded = jwtDecode(res.token);
+
+            // set token to localstorage
             Auth.authenticateUser(res.token);
+
             dispatch(setAuthorized(true));
-            dispatch(setUser(res.user));
+            dispatch(setUser({
+                id: decoded.sub,
+                name: decoded.name,
+            }));
             history.push('/');
         } else {
             dispatch(error(getNotificationOptions(res.message)));
@@ -58,33 +66,46 @@ export const createUser = values => async (dispatch) => {
     }
 };
 
-export const logUserIn = values => async (dispatch) => {
-    try {
-        let res = await fetch(`${process.env.API_HOST}/auth/login`, {
-            method: 'POST',
-            headers: new Headers({ 'content-type': 'application/json' }),
-            mode: 'cors',
-            body: JSON.stringify(values),
-        });
-        res = await res.json();
-
-        if (res.token) {
-            Auth.authenticateUser(res.token);
-            dispatch(setAuthorized(true));
-            dispatch(setUser(res.user));
-            history.push('/');
-        } else {
-            dispatch(error(getNotificationOptions(res.message)));
-        }
-    } catch (err) {
-        dispatch(error(getNotificationOptions(err.message)));
-    }
-};
+export const createUser = values => handleAuthentication('register', values);
+export const logUserIn = values => handleAuthentication('login', values);
 
 export const logUserOut = () => (dispatch) => {
     try {
         Auth.deauthenticateUser();
         dispatch(setAuthorized(false));
+    } catch (err) {
+        dispatch(error(getNotificationOptions(err.message)));
+    }
+};
+
+export const facebookLogin = () => (dispatch) => {
+    try {
+        FB.login((res) => {
+            fetch(`${process.env.API_HOST}/auth/facebook/`, {
+                method: 'POST',
+                headers: new Headers({
+                    'content-type': 'application/json',
+                    Authorization: `Bearer ${res.authResponse.accessToken}`,
+                }),
+                mode: 'cors',
+            })
+                .then(res => res.json())
+                .then((res) => {
+                    if (res.token) {
+                        const decoded = jwtDecode(res.token);
+
+                        Auth.authenticateUser(res.token);
+                        dispatch(setAuthorized(true));
+                        dispatch(setUser({
+                            id: decoded.sub,
+                            name: decoded.name,
+                        }));
+                        history.push('/');
+                    } else {
+                        dispatch(error(getNotificationOptions(res.message)));
+                    }
+                });
+        });
     } catch (err) {
         dispatch(error(getNotificationOptions(err.message)));
     }

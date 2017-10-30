@@ -61,6 +61,8 @@
     "nodemon": "^1.11.0",
     "optimize-css-assets-webpack-plugin": "^2.0.0",
     "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "passport-facebook-token": "^3.3.0",
     "pg": "^6.4.0",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",

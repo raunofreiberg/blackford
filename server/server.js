@@ -13,6 +13,7 @@ const dev = process.env.NODE_ENV === 'development';
 const apiRoutes = require('./apiRoutes');
 const authRoutes = require('./authRoutes');
 const { ensureAuthenticated } = require('./auth/utils');
+const { queryUsers } = require('./models/auth');
 
 const app = express();
 
@@ -33,9 +34,8 @@ app.use('/api/todos', ensureAuthenticated);
 app.use('/api/todos', apiRoutes);
 app.use('/auth', authRoutes);
 
-const knex = require('./dbConnect');
-knex('users')
-    .then(x => console.log(x))
+// queryUsers()
+//     .then(x => console.log(x))
 
 app.all('*', (req, res, next) => {
     res.sendFile('index.html', {

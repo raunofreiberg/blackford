@@ -39,7 +39,7 @@ class Auth {
     /**
      * Auth middleware - keeps the user logged in.
      *
-     * @param {object} store
+     * @param {object} store - Redux store
      */
     static ensureAuthenticated(store) {
         if (this.isUserAuthenticated()) {

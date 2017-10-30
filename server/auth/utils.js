@@ -28,7 +28,7 @@ exports.ensureAuthenticated = (req, res, next) => {
             });
     } catch (err) {
         return res.status(401).json({
-            status: 'Token has expired.',
+            status: 'Token is invalid or has expired.',
         });
     }
 };

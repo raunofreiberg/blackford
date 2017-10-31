@@ -17,38 +17,39 @@ class Login extends React.Component {
         this.props.logUserIn(values);
     }
 
-    renderField(field) {
-        const { meta: { touched, error } } = field;
-        const className = `form-group ${touched && error ? 'has-error' : ''}`;
+    required = value => (value ? undefined : 'Required');
 
-        return (
-            <div className={className}>
-                <label>{field.label}</label>
-                <input type="text" className="form-control" {...field.input} />
-                <div>
-                    {touched
-                        ? <p className="text-danger">{error}</p>
-                        : ''}
-                </div>
-            </div>
-        );
-    }
+    renderField = ({ input, placeholder, type, meta: { touched, error } }) => (
+        <div>
+            <input {...input} placeholder={placeholder} type={type} className="input__field" />
+            {touched && error && <span>{error}</span>}
+        </div>
+    );
 
     render() {
         const { handleSubmit } = this.props;
 
         return (
-            <div className="todos-new">
+            <div>
                 <h3>Login</h3>
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                    <Field name="username" label="Username" component={this.renderField}/>
-                    <Field name="password" type="password" label="Password" component={this.renderField}/>
+                    <Field
+                        name="text"
+                        type="text"
+                        component={this.renderField}
+                        placeholder="Username"
+                        validate={this.required}
+                    />
+                    <Field
+                        name="password"
+                        type="password"
+                        component={this.renderField}
+                        placeholder="Password"
+                        validate={this.required}
+                    />
                     <button type="submit" className="btn btn-primary">
                         Submit
                     </button>
-                    <Link to="/" className="btn btn-danger margin-left-sm">
-                        Cancel
-                    </Link>
                     <Link to="/register" className="btn btn-default margin-left-sm">
                         Register
                     </Link>

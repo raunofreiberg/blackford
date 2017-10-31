@@ -46,13 +46,13 @@ class Auth {
             const token = this.getToken();
             try {
                 const decoded = jwtDecode(token);
-                const user = {
-                    id: decoded.id,
-                    username: decoded.username,
-                };
+                const { id, username } = decoded;
 
                 store.dispatch(setAuthorized(true));
-                store.dispatch(setUser(user));
+                store.dispatch(setUser({
+                    id,
+                    username,
+                }));
             } catch (err) {
                 setTimeout(() => {
                     store.dispatch(error(getNotificationOptions(err.message)));

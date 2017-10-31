@@ -18,13 +18,15 @@ const AppRouter = () => (
         <div>
             <NotificationsList />
             <Navbar />
-            <Switch>
-                <Route path="/register" component={Register} />
-                <Route path="/login" component={Login} />
-                <Route path="/todos/new" component={RequireAuth(TodosNew)} />
-                <Route path="/todos/:id" component={RequireAuth(TodosShow)} />
-                <Route path="/" component={RequireAuth(Todos)} />
-            </Switch>
+            <div className="container">
+                <Switch>
+                    <Route path="/register" component={Register}/>
+                    <Route path="/login" component={Login}/>
+                    <Route path="/todos/new" component={RequireAuth(TodosNew)}/>
+                    <Route path="/todos/:id" component={RequireAuth(TodosShow)}/>
+                    <Route path="/" component={RequireAuth(Todos)}/>
+                </Switch>
+            </div>
         </div>
     </Router>
 );

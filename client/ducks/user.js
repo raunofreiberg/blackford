@@ -110,10 +110,8 @@ export const facebookLogin = () => async (dispatch) => {
                 avatar,
             }));
             history.push('/');
-        } else {
-            dispatch(error(getNotificationOptions(authResponse.message)));
         }
     } catch (err) {
-        dispatch(error(getNotificationOptions(err.message)));
+        dispatch(error(getNotificationOptions('Logging in via Facebook failed')));
     }
 };

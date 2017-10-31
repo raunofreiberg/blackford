@@ -31,10 +31,12 @@ $ createdb DB_NAME
 ```
 
 * Create a .env file at the root of your application and update it with your env variables
+
 @DATABASE_URL - URL of your database
 @TOKEN_SECRET = Signature for signing JWT's
 @CLIENT_SECRET = Facebook app client secret
 @CLIENT_ID = Facebook app client ID
+
 ```
 DATABASE_URL=postgres://localhost/<DB_NAME>
 TOKEN_SECRET=<SECRET>

@@ -11,6 +11,8 @@
 - PostgreSQL
 - Docker
 - PassportJS with JWT for authentication
+  - Local authentication
+  - Facebook OAuth
 - React
 - Redux
 - React-Router 4
@@ -28,15 +30,13 @@
 $ createdb DB_NAME
 ```
 
-* Create a .env file at the root of your application and update it with your DATABASE_URL containing the name of your database:
+* Create a .env file at the root of your application and update it with your env variables
 
 ```
-DATABASE_URL=postgres://localhost/<DB_NAME>
-```
-
-* Also, add the TOKEN_SECRET for signing JWT tokens
-```
-TOKEN_SECRET=<SECRET>
+DATABASE_URL=postgres://localhost/<DB_NAME> // URL of your database
+TOKEN_SECRET=<SECRET> // Signature for signing JWT's
+CLIENT_SECRET=<CLIENT_SECRET> // Facebook app client secret
+CLIENT_ID=<CLIENT_ID> // Facebook app client ID
 ```
 
 * Install dependencies

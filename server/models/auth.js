@@ -18,16 +18,16 @@ module.exports = {
      * @param profileId {string} - Facebook profile ID
      * @param avatar {string} - Facebook profile picture
      */
-    insertFbUser: (username, profileId, avatar) => {
-        return knex('users')
+    insertFbUser: (username, profileId, avatar) => (
+        knex('users')
             .insert({
                 username,
                 profile_id: profileId,
                 password: '',
                 avatar,
             })
-            .returning('*');
-    },
+            .returning('*')
+    ),
     queryUsers: () => knex('users'),
     queryUser: username => knex('users').where({ username }).first(),
     queryFbUser: id => knex('users').where({ profile_id: id }).first(),

@@ -1,9 +1,12 @@
 import { error } from 'react-notification-system-redux';
 import jwtDecode from 'jwt-decode';
+import fbLogin from 'facebook-login';
 
 import history from '../history';
 import getNotificationOptions from '../utils/notifications';
 import Auth from '../utils/authentication';
+
+const fbApi = fbLogin({ appId: '1728869704086428' });
 
 const SET_USER = 'SET_USER';
 const SET_AUTHORIZED = 'SET_AUTHORIZED';
@@ -46,17 +49,19 @@ const handleAuthentication = (path, values) => async (dispatch) => {
             body: JSON.stringify(values),
         });
         res = await res.json();
+        const { token } = res;
 
-        if (res.token) {
-            const decoded = jwtDecode(res.token);
+        if (token) {
+            const decoded = jwtDecode(token);
+            const { id, username } = decoded;
 
             // set token to localstorage
-            Auth.authenticateUser(res.token);
+            Auth.authenticateUser(token);
 
             dispatch(setAuthorized(true));
             dispatch(setUser({
-                id: decoded.id,
-                username: decoded.username,
+                id,
+                username,
             }));
             history.push('/');
         } else {
@@ -72,11 +77,6 @@ export const logUserIn = values => handleAuthentication('login', values);
 
 export const logUserOut = () => (dispatch) => {
     try {
-        FB.getLoginStatus((res) => {
-            if (res.status === 'connected') {
-                FB.logout();
-            }
-        });
         Auth.deauthenticateUser();
         dispatch(setAuthorized(false));
     } catch (err) {
@@ -84,35 +84,35 @@ export const logUserOut = () => (dispatch) => {
     }
 };
 
-export const facebookLogin = () => (dispatch) => {
+export const facebookLogin = () => async (dispatch) => {
     try {
-        FB.login((result) => {
-            fetch(`${process.env.API_HOST}/auth/facebook/`, {
-                method: 'POST',
-                headers: new Headers({
-                    'content-type': 'application/json',
-                    Authorization: `Bearer ${result.authResponse.accessToken}`,
-                }),
-                mode: 'cors',
-            })
-                .then(res => res.json())
-                .then((res) => {
-                    if (res.token) {
-                        const decoded = jwtDecode(res.token);
-
-                        Auth.authenticateUser(res.token);
-                        dispatch(setAuthorized(true));
-                        dispatch(setUser({
-                            id: decoded.id,
-                            username: decoded.username,
-                            avatar: decoded.avatar,
-                        }));
-                        history.push('/');
-                    } else {
-                        dispatch(error(getNotificationOptions(res.message)));
-                    }
-                });
+        const fbResponse = await fbApi.login();
+        let authResponse = await fetch(`${process.env.API_HOST}/auth/facebook/`, {
+            method: 'POST',
+            headers: new Headers({
+                'content-type': 'application/json',
+                Authorization: `Bearer ${fbResponse.authResponse.accessToken}`,
+            }),
         });
+        authResponse = await authResponse.json();
+        const { token } = authResponse;
+
+        if (token) {
+            const decoded = jwtDecode(token);
+            const { username, id, avatar } = decoded;
+
+            // set token to localstorage
+            Auth.authenticateUser(token);
+            dispatch(setAuthorized(true));
+            dispatch(setUser({
+                id,
+                username,
+                avatar,
+            }));
+            history.push('/');
+        } else {
+            dispatch(error(getNotificationOptions(authResponse.message)));
+        }
     } catch (err) {
         dispatch(error(getNotificationOptions(err.message)));
     }

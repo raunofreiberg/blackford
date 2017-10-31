@@ -61,11 +61,13 @@ exports.logUserIn = async (req, res) => {
 };
 
 exports.loginFacebook = (req, res) => {
+    const { username, id, avatar } = req.user;
+
     try {
         const token = encodeToken({
-            username: req.user.username,
-            id: req.user.id,
-            avatar: req.user.avatar,
+            username,
+            id,
+            avatar,
         });
 
         res.status(200).json({

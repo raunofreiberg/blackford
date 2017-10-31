@@ -47,8 +47,8 @@ class Auth {
             try {
                 const decoded = jwtDecode(token);
                 const user = {
-                    id: decoded.sub,
-                    name: decoded.name,
+                    id: decoded.id,
+                    username: decoded.username,
                 };
 
                 store.dispatch(setAuthorized(true));

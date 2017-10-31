@@ -15,7 +15,7 @@ exports.ensureAuthenticated = (req, res, next) => {
     const token = header[1];
     try {
         const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-        return knex('users').where({ id: parseInt(decoded.sub, 10) }).first()
+        return knex('users').where({ id: parseInt(decoded.id, 10) }).first()
             .then((user) => {
                 next();
                 return user;
@@ -33,11 +33,11 @@ exports.ensureAuthenticated = (req, res, next) => {
     }
 };
 
-exports.encodeToken = (user) => {
+exports.encodeToken = ({ id, username, avatar }) => {
     const payload = {
-        sub: user.id,
-        name: user.username,
-        avatar: user.avatar,
+        id,
+        username,
+        avatar,
     };
 
     return jwt.sign(payload, process.env.TOKEN_SECRET, {

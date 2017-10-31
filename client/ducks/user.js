@@ -11,7 +11,7 @@ const SET_AUTHORIZED = 'SET_AUTHORIZED';
 const initialState = {
     user: {
         id: null,
-        name: 'Unknown',
+        username: 'Unknown',
         avatar: null,
     },
     isAuthorized: false,
@@ -55,8 +55,8 @@ const handleAuthentication = (path, values) => async (dispatch) => {
 
             dispatch(setAuthorized(true));
             dispatch(setUser({
-                id: decoded.sub,
-                name: decoded.name,
+                id: decoded.id,
+                username: decoded.username,
             }));
             history.push('/');
         } else {
@@ -103,8 +103,8 @@ export const facebookLogin = () => (dispatch) => {
                         Auth.authenticateUser(res.token);
                         dispatch(setAuthorized(true));
                         dispatch(setUser({
-                            id: decoded.sub,
-                            name: decoded.name,
+                            id: decoded.id,
+                            username: decoded.username,
                             avatar: decoded.avatar,
                         }));
                         history.push('/');

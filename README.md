@@ -39,11 +39,6 @@ CLIENT_SECRET=<CLIENT_SECRET> // Facebook app client secret
 CLIENT_ID=<CLIENT_ID> // Facebook app client ID
 ```
 
-* Also, add the TOKEN_SECRET for signing JWT tokens
-```
-TOKEN_SECRET=<SECRET>
-```
-
 * Install dependencies
 
 ```

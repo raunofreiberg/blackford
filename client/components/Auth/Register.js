@@ -33,7 +33,7 @@ class Register extends React.Component {
                 <h3>Register</h3>
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                     <Field
-                        name="text"
+                        name="username"
                         type="text"
                         component={this.renderField}
                         placeholder="Username"

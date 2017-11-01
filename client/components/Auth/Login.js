@@ -34,7 +34,7 @@ class Login extends React.Component {
                 <h3>Login</h3>
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                     <Field
-                        name="text"
+                        name="username"
                         type="text"
                         component={this.renderField}
                         placeholder="Username"

@@ -33,6 +33,12 @@ exports.ensureAuthenticated = (req, res, next) => {
     }
 };
 
+/**
+ * @param id {string} - User ID from db
+ * @param username {string} - User display name
+ * @param avatar {string} - URL of Facebook profile picture (optional)
+ * @returns {string} - Encoded JWT
+ */
 exports.encodeToken = ({ id, username, avatar }) => {
     const payload = {
         id,

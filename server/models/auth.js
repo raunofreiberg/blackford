@@ -2,13 +2,13 @@ const knex = require('../dbConnect');
 const bcrypt = require('bcryptjs');
 
 module.exports = {
-    insertUser: (req) => {
+    insertUser: (username, password) => {
         const salt = bcrypt.genSaltSync();
-        const hash = bcrypt.hashSync(req.body.password, salt);
+        const hash = bcrypt.hashSync(password, salt);
 
         return knex('users')
             .insert({
-                username: req.body.username,
+                username,
                 password: hash,
             })
             .returning('*');

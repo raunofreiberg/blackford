@@ -3,7 +3,8 @@ const { comparePass, encodeToken } = require('../auth/utils');
 
 exports.createUser = async (req, res) => {
     try {
-        const user = await insertUser(req);
+        const { username, password } = req.body;
+        const user = await insertUser(username, password);
         const token = encodeToken(user[0]);
 
         await res.status(200).json({

@@ -7,7 +7,6 @@ import getNotificationOptions from '../utils/notifications';
 import Auth from '../utils/authentication';
 
 const fbApi = fbLogin({ appId: '1728869704086428' });
-
 const SET_USER = 'SET_USER';
 const SET_AUTHORIZED = 'SET_AUTHORIZED';
 

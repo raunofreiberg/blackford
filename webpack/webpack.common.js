@@ -1,27 +1,30 @@
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const helpers = require('../helpers');
-const dev = process.env.NODE_ENV === 'development';
 
 module.exports = {
-    entry: [
-        './client/index.js'
-    ],
     module: {
         rules: [{
+            exclude: /node_modules/,
             test: /\.jsx?$/,
-            use: 'babel-loader',
-            exclude: '/node_modules/',
+            use: [{
+                loader: 'babel-loader',
+            }],
         },
-            {
-                test: /\.html$/,
-                use: 'html-loader'
+        {
+            test: /\.(woff|woff2|ttf|eot|jpg|jpe?g|png|gif|svg|ico)(\?.*$|$)/,
+            loader: `url-loader`,
+        },
+        {
+            test: /\.s?css/,
+            use: [{
+                loader: 'style-loader',
             },
             {
-                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)(\?.*$|$)/,
-                loader: `file-loader?name=assets/[name]${dev ? '' : '.[hash]'}.[ext]`
+                loader: 'css-loader',
             },
-        ]
+            {
+                loader: 'sass-loader',
+            }],
+        }],
     },
     plugins: [
         new webpack.DefinePlugin({
@@ -29,9 +32,18 @@ module.exports = {
         }),
     ],
     resolve: {
-        extensions: ['.js', '.json']
+        extensions: ['.js', '.json'],
     },
     node: {
-        fs: "empty",
-    },
+        fs: 'empty',
+        tls: 'empty',
+        net: 'empty',
+        console: false,
+        global: true,
+        process: true,
+        Buffer: true,
+        __filename: 'mock',
+        __dirname: 'mock',
+        setImmediate: true,
+    }
 };

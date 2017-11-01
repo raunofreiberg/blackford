@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 
 import { logUserIn, facebookLogin } from '../../ducks/user';
+import renderField from '../Field/renderField';
 
 class Login extends React.Component {
     static propTypes = {
@@ -19,43 +20,32 @@ class Login extends React.Component {
 
     required = value => (value ? undefined : 'Required');
 
-    renderField = ({ input, placeholder, type, meta: { touched, error } }) => (
-        <div>
-            <input {...input} placeholder={placeholder} type={type} className="input__field" />
-            {touched && error && <span>{error}</span>}
-        </div>
-    );
-
     render() {
         const { handleSubmit } = this.props;
 
         return (
-            <div>
+            <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="form__auth">
                 <h3>Login</h3>
-                <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                    <Field
-                        name="username"
-                        type="text"
-                        component={this.renderField}
-                        placeholder="Username"
-                        validate={this.required}
-                    />
-                    <Field
-                        name="password"
-                        type="password"
-                        component={this.renderField}
-                        placeholder="Password"
-                        validate={this.required}
-                    />
-                    <button type="submit" className="btn btn-primary">
-                        Submit
-                    </button>
-                    <Link to="/register" className="btn btn-default margin-left-sm">
-                        Register
-                    </Link>
-                </form>
-                <button className="btn btn-secondary" onClick={this.props.facebookLogin}>Facebook login</button>
-            </div>
+                <Field
+                    name="username"
+                    type="text"
+                    component={renderField}
+                    placeholder="Username"
+                    validate={this.required}
+                />
+                <Field
+                    name="password"
+                    type="password"
+                    component={renderField}
+                    placeholder="Password"
+                    validate={this.required}
+                />
+                <button type="submit" className="btn btn--primary">Login</button>
+                <button className="btn btn--facebook" onClick={this.props.facebookLogin}>Facebook login</button>
+                <Link to="/register" className="btn btn--default">
+                    Register
+                </Link>
+            </form>
         );
     }
 }

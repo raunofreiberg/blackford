@@ -1,7 +1,18 @@
+// Vendors
 @import "~bootstrap-sass/assets/stylesheets/_bootstrap-sprockets.scss";
 @import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import "~normalize-scss/sass/normalize";
+
+// Global
 @import './global';
+
+// Atoms
+@import './atoms/buttons';
+@import 'atoms/forms';
+
+// Components
 @import '../components/Todos/Todos';
 @import '../components/TodosNew/TodosNew';
 @import '../components/TodoShow/TodoShow';
 @import '../components/Navbar/Navbar';
+@import '../components/Field/Field';

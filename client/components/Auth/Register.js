@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 
 import { createUser } from '../../ducks/user';
+import renderField from '../Field/renderField';
 
 class Register extends React.Component {
     static propTypes = {
@@ -18,42 +19,29 @@ class Register extends React.Component {
 
     required = value => (value ? undefined : 'Required');
 
-    renderField = ({ input, placeholder, type, meta: { touched, error } }) => (
-        <div>
-            <input {...input} placeholder={placeholder} type={type} className="input__field" />
-            {touched && ((error && <span>{error}</span>))}
-        </div>
-    );
-
     render() {
         const { handleSubmit } = this.props;
 
         return (
-            <div>
+            <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="form__auth">
                 <h3>Register</h3>
-                <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                    <Field
-                        name="username"
-                        type="text"
-                        component={this.renderField}
-                        placeholder="Username"
-                        validate={this.required}
-                    />
-                    <Field
-                        name="password"
-                        type="password"
-                        component={this.renderField}
-                        placeholder="Password"
-                        validate={this.required}
-                    />
-                    <button type="submit" className="btn btn-primary">
-                        Submit
-                    </button>
-                    <Link to="/login" className="btn btn-default margin-left-sm">
-                        Login
-                    </Link>
-                </form>
-            </div>
+                <Field
+                    name="username"
+                    type="text"
+                    component={renderField}
+                    placeholder="Username"
+                    validate={this.required}
+                />
+                <Field
+                    name="password"
+                    type="password"
+                    component={renderField}
+                    placeholder="Password"
+                    validate={this.required}
+                />
+                <button type="submit" className="btn btn--primary">Register</button>
+                <Link to="/login" className="btn btn--default">Login</Link>
+            </form>
         );
     }
 }

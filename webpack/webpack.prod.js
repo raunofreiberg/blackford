@@ -9,11 +9,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlPluginRemove = require('html-webpack-plugin-remove');
 
 module.exports = webpackMerge(commonConfig, {
-    devtool: 'source-map',
+    devtool: 'eval',
     output: {
         path: helpers.root('dist'),
         filename: '[name].[chunkhash].js',
-        publicPath: '/'
+        publicPath: '/',
     },
     module: {
         rules: [{
@@ -38,8 +38,8 @@ module.exports = webpackMerge(commonConfig, {
                 html5: true,
                 removeComments: true,
                 removeEmptyAttributes: true,
-                removeTagWhitespace: true
-            }
+                removeTagWhitespace: true,
+            },
         }),
         new HtmlPluginRemove(/<script.*?src="\/bundle.js".*?<\/script>/),
         new ExtractTextPlugin('[name].[chunkhash].css'),
@@ -51,6 +51,7 @@ module.exports = webpackMerge(commonConfig, {
             },
         }),
         new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('production'),
             'process.env.API_HOST': JSON.stringify('http://207.154.244.76:3001'),
         }),
         new webpack.optimize.UglifyJsPlugin({

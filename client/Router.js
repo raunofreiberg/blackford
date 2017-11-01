@@ -18,7 +18,7 @@ const AppRouter = () => (
         <div>
             <NotificationsList />
             <Navbar />
-            <div className="container">
+            <div className="container main">
                 <Switch>
                     <Route path="/register" component={Register}/>
                     <Route path="/login" component={Login}/>

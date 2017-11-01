@@ -1,0 +1,45 @@
+.btn {
+  display: block;
+  width: 100%;
+  height: 42px;
+
+  margin-top: 16px;
+  padding: 8px;
+
+  border: 0;
+  border-radius: 90px;
+  box-shadow: 0 0 51px 0 rgba(0, 0, 0, 0.08), 0 6px 18px 0 rgba(0, 0, 0, 0.05);
+  color: $color-white;
+  transition: all 300ms ease-in-out;
+
+  &:hover,
+  &:focus {
+    color: $color-white;
+    outline: 0;
+  }
+
+  &:active {
+    box-shadow: inherit;
+  }
+
+  &--primary {
+    background: $color-primary-gradient;
+
+    &:active {
+      background-image: $color-primary-gradient;
+    }
+  }
+
+  &--default {
+    background: $color-black;
+    line-height: 27px;
+  }
+
+  &--facebook {
+    background: linear-gradient(135deg, #ABDCFF 10%, #0396FF 100%);
+
+    &:active {
+      background-image: linear-gradient(135deg, #ABDCFF 10%, #0396FF 100%);
+    }
+  }
+}

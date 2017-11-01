@@ -36,7 +36,7 @@ class NotificationsList extends React.Component {
                     border: 'none',
                     color: '#fff',
                     lineHeight: '21px',
-                    fontFamily: 'Lato, sans-serif',
+                    fontFamily: 'Circular Air',
                     fontSize: '15px',
                     borderRadius: '3px',
                     boxShadow: 'none',

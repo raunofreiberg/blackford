@@ -14,8 +14,10 @@ const store = createReduxStore(rootReducer);
 // Authentication JWT middleware
 Auth.ensureAuthenticated(store);
 
+
 ReactDOM.render(
     <Provider store={store}>
         <Router/>
     </Provider>, document.getElementById('app'),
 );
+

@@ -4,29 +4,31 @@ const commonConfig = require('./webpack.common.js');
 const helpers = require('../helpers');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlPluginRemove = require('html-webpack-plugin-remove');
-const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
 module.exports = webpackMerge(commonConfig, {
-    entry: {
-        bundle: [
-            'babel-polyfill',
-            './client/index.js',
-        ],
-    },
+    devtool: 'source-map',
     output: {
         path: helpers.root('dist'),
         filename: '[name].[chunkhash].js',
-        publicPath: '/',
+        publicPath: '/'
+    },
+    module: {
+        rules: [{
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: ['css-loader', 'sass-loader']
+            }),
+            test: /\.(css|scss)$/
+        }]
     },
     plugins: [
         new CleanWebpackPlugin(['dist'], {
             root: helpers.root(),
             verbose: true,
-            watch: true,
+            watch: true
         }),
         new HtmlWebpackPlugin({
             template: './client/index.html',
@@ -46,17 +48,6 @@ module.exports = webpackMerge(commonConfig, {
                 discardComments: {
                     removeAll: true,
                 },
-            },
-        }),
-        new CopyWebpackPlugin([{
-            from: helpers.root('./client/images'),
-            to: helpers.root('dist/images'),
-        }]),
-        new ImageminPlugin({
-            disable: process.env.NODE_ENV !== 'production',
-            test: /\.(jpe?g|png|gif|svg)$/i,
-            pngquant: {
-                quality: '95-100',
             },
         }),
         new webpack.DefinePlugin({

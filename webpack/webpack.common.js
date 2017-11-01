@@ -1,30 +1,25 @@
 const webpack = require('webpack');
+const dev = process.env.NODE_ENV === 'development';
 
 module.exports = {
+    entry: [
+        './client/index.js'
+    ],
     module: {
         rules: [{
-            exclude: /node_modules/,
             test: /\.jsx?$/,
-            use: [{
-                loader: 'babel-loader',
-            }],
+            use: 'babel-loader',
+            exclude: '/node_modules/',
         },
-        {
-            test: /\.(woff|woff2|ttf|eot|jpg|jpe?g|png|gif|svg|ico)(\?.*$|$)/,
-            loader: `url-loader`,
-        },
-        {
-            test: /\.s?css/,
-            use: [{
-                loader: 'style-loader',
+            {
+                test: /\.html$/,
+                use: 'html-loader'
             },
             {
-                loader: 'css-loader',
+                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)(\?.*$|$)/,
+                loader: `file-loader?name=assets/[name]${dev ? '' : '.[hash]'}.[ext]`
             },
-            {
-                loader: 'sass-loader',
-            }],
-        }],
+        ]
     },
     plugins: [
         new webpack.DefinePlugin({
@@ -32,7 +27,7 @@ module.exports = {
         }),
     ],
     resolve: {
-        extensions: ['.js', '.json'],
+        extensions: ['.js', '.json']
     },
     node: {
         fs: 'empty',

@@ -2,7 +2,7 @@ export default function getNotificationOptions(message) {
     return ({
         message,
         position: 'tr',
-        autoDismiss: 0,
+        autoDismiss: 4,
     });
 }
 

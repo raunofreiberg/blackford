@@ -5,18 +5,18 @@
 
 #### Technologies Used
 
-- NodeJS
-- ExpressJS
-- KnexJS
-- PostgreSQL
+- Node: 8.9.x
+- Express: 4.15.x
+- KnexJS: 0.13.x
+- PostgreSQL: 9.6.x
 - Docker
 - PassportJS with JWT for authentication
   - Local authentication
   - Facebook OAuth
-- React
-- Redux
-- React-Router 4
-- Redux-Form 6
+- React: 15.6.x
+- Redux: 3.7.x
+- React-Router: 4.1.x
+- Redux-Form: 6.8.x
 - SCSS
 - Webpack 2
 

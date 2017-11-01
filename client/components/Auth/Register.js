@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 
-import { createUser } from '../../ducks/user';
+import { createUser, facebookLogin } from '../../ducks/user';
 import renderField from '../Field/renderField';
 
 class Register extends React.Component {
@@ -41,6 +41,7 @@ class Register extends React.Component {
                 />
                 <button type="submit" className="btn btn--primary">Register</button>
                 <Link to="/login" className="btn btn--default">Login</Link>
+                <button className="btn btn--facebook" onClick={this.props.facebookLogin}>Facebook login</button>
             </form>
         );
     }
@@ -59,4 +60,4 @@ function validate(values) {
 export default reduxForm({
     validate,
     form: 'RegisterForm',
-})(connect(null, { createUser })(Register));
+})(connect(null, { createUser, facebookLogin })(Register));

@@ -11,7 +11,7 @@ import Todos from './components/Todos/Todos';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
 import RequireAuth from './components/Auth/RequireAuth';
-import NotificationsList from './components/Notifications/Notifications';
+import NotificationsList from './components/Notifications';
 
 const AppRouter = () => (
     <Router history={history}>

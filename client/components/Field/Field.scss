@@ -3,9 +3,6 @@
   width: 100%;
   height: 40px;
   position: relative;
-
-  padding: 8px;
-
   border: 0;
   border-bottom: 1.5px solid #ddd;
 
@@ -74,7 +71,7 @@ input:focus ~ .input__bar:before, input:focus ~ .input__bar:after {
     font-weight: normal;
     position: absolute;
     pointer-events: none;
-    left: 5px;
+    left: 0;
     top: 10px;
     transition: 0.2s ease all;
   }

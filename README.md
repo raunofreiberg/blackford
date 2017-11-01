@@ -18,7 +18,7 @@
 - React-Router: 4.1.x
 - Redux-Form: 6.8.x
 - SCSS
-- Webpack 2
+- Webpack 3.x
 
 
 #### Setup

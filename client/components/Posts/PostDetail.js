@@ -2,31 +2,11 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
-import { fetchTodo, editTodo, deleteTodo } from '../../ducks/todos';
+import { fetchPost, editTodo, deleteTodo } from '../../ducks/posts';
 
 class TodoShow extends PureComponent {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
-        if (Number(this.props.match.params.id)) {
-            this
-                .props
-                .fetchTodo(this.props.match.params.id, (res) => {
-                    if (!_.size(res.data)) {
-                        this
-                            .props
-                            .history
-                            .push('/');
-                    }
-                });
-        } else {
-            this
-                .props
-                .history
-                .push('/');
-        }
+        this.props.fetchPost(this.props.match.params.id);
     }
 
     renderField(field) {
@@ -77,9 +57,9 @@ class TodoShow extends PureComponent {
     }
 
     render() {
-        const { todo, handleSubmit } = this.props;
+        const { handleSubmit } = this.props;
 
-        if (!todo) {
+        if (!this.props.post) {
             return (
                 <div className="container text-center">
                     <h3>Loading...</h3>
@@ -97,12 +77,12 @@ class TodoShow extends PureComponent {
 
                 <div className="container text-center">
                     <h2>Content:</h2>
-                    <h4>{this.props.todo.content}</h4>
+                    <h4>{this.props.post.description}</h4>
                 </div>
 
                 <div className="container">
                     <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                        <Field name="content" label="Edit Todo Content" component={this.renderField} />
+                        <Field name="content" label="Edit Todo Content" component={this.renderField}/>
                         <button type="submit" className="btn btn-primary">
                             Save Changes
                         </button>
@@ -114,12 +94,9 @@ class TodoShow extends PureComponent {
 }
 
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     return {
-        todo: state.todos.todo,
-        initialValues: {
-            content: state.todos.todo.content,
-        },
+        post: state.posts.post,
     };
 }
 
@@ -139,6 +116,6 @@ function validate(values, ownProps) {
 
 let InitializeFromStateForm = reduxForm({ validate, form: 'TodosEditForm', enableReinitialize: true })(TodoShow);
 
-InitializeFromStateForm = connect(mapStateToProps, { fetchTodo, editTodo, deleteTodo })(InitializeFromStateForm);
+InitializeFromStateForm = connect(mapStateToProps, { fetchPost, editTodo, deleteTodo })(InitializeFromStateForm);
 
 export default InitializeFromStateForm;

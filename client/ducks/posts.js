@@ -1,47 +1,53 @@
 import history from '../history';
 import Auth from '../utils/authentication';
 
-const FETCH_TODO = 'FETCH_TODO';
-const SET_TODOS = 'SET_TODOS';
+const FETCH_POST = 'FETCH_POST';
+const SET_POSTS = 'SET_POSTS';
+const SET_LOADING = 'SET_LOADING';
 
 const initialState = {
-    todos: [],
-    todo: {
+    posts: [],
+    post: {
         id: null,
-        content: '',
     },
+    isLoading: false,
 };
 
-export default function todoReducer(state = initialState, action) {
+export default function postsReducer(state = initialState, action) {
     switch (action.type) {
-        case SET_TODOS:
+        case SET_POSTS:
             return {
                 ...state,
-                todos: action.todos,
+                posts: action.posts,
             };
-        case FETCH_TODO:
+        case FETCH_POST:
             return {
                 ...state,
-                todo: action.todo,
+                todo: action.post,
+            };
+        case SET_LOADING:
+            return {
+                ...state,
+                isLoading: action.status,
             };
         default:
             return state;
     }
 }
 
-const setTodos = todos => ({ type: SET_TODOS, todos });
-const setFetchedTodo = todo => ({ type: FETCH_TODO, todo });
+const setPosts = posts => ({ type: SET_POSTS, posts });
+export const setLoading = status => ({ type: SET_LOADING, status });
+const setFetchedPost = post => ({ type: FETCH_POST, post });
 
-export const createTodo = values => async () => {
+export const createPost = values => async () => {
     try {
-        await fetch(`${process.env.API_HOST}/api/todos`, {
+        await fetch(`${process.env.API_HOST}/api/posts`, {
             method: 'POST',
             headers: new Headers({
-                'content-type': 'application/json',
                 Authorization: `Bearer ${Auth.getToken()}`,
             }),
             mode: 'cors',
-            body: JSON.stringify(values),
+            body: values,
         });
         history.push('/');
     } catch (e) {
@@ -49,9 +55,10 @@ export const createTodo = values => async () => {
     }
 };
 
-export const deleteTodo = id => async (dispatch) => {
+export const deletePost = postId => async (dispatch) => {
+    console.log(postId);
     try {
-        let res = await fetch(`${process.env.API_HOST}/api/todos/${id}`, {
+        let res = await fetch(`${process.env.API_HOST}/api/posts/${postId}`, {
             method: 'DELETE',
             headers: new Headers({
                 'content-type': 'application/json',
@@ -60,49 +67,31 @@ export const deleteTodo = id => async (dispatch) => {
             mode: 'cors',
         });
         res = await res.json();
-        await dispatch(setTodos(res.todos));
+        await dispatch(setPosts(res.posts));
     } catch (e) {
         console.log(e);
     }
 };
 
-export const deleteAllTodos = () => (dispatch) => {
+export const editPost = (postId, value) => async () => {
     try {
-        fetch(`${process.env.API_HOST}/api/todos/`, {
-            method: 'DELETE',
-            headers: new Headers({
-                'content-type': 'application/json',
-                Authorization: `Bearer ${Auth.getToken()}`,
-            }),
-            mode: 'cors',
-        })
-            .then(res => res.json())
-            .then(todos => dispatch(setTodos(todos)));
-    } catch (e) {
-        console.log(e);
-    }
-};
-
-export const editTodo = (id, values) => async () => {
-    try {
-        await fetch(`${process.env.API_HOST}/api/todos/${id}`, {
+        await fetch(`${process.env.API_HOST}/api/posts/${postId}`, {
             method: 'PUT',
             headers: new Headers({
                 'content-type': 'application/json',
                 Authorization: `Bearer ${Auth.getToken()}`,
             }),
             mode: 'cors',
-            body: JSON.stringify(values),
+            body: JSON.stringify(value),
         });
-        history.push('/');
     } catch (e) {
         console.log(e);
     }
 };
 
-export const fetchTodo = id => (dispatch) => {
+export const fetchPost = id => (dispatch) => {
     try {
-        fetch(`${process.env.API_HOST}/api/todos/${id}`, {
+        fetch(`${process.env.API_HOST}/api/posts/${id}`, {
             method: 'GET',
             headers: new Headers({
                 'content-type': 'application/json ',
@@ -111,15 +100,16 @@ export const fetchTodo = id => (dispatch) => {
             mode: 'cors',
         })
             .then(res => res.json())
-            .then(data => dispatch(setFetchedTodo(data.todo)));
+            .then(data => dispatch(setFetchedPost(data.post)));
     } catch (e) {
         console.log(e);
     }
 };
 
-export const fetchTodos = () => (dispatch) => {
+export const fetchPosts = () => (dispatch) => {
+    dispatch(setLoading(true));
     try {
-        fetch(`${process.env.API_HOST}/api/todos/`, {
+        fetch(`${process.env.API_HOST}/api/posts/`, {
             method: 'GET',
             headers: new Headers({
                 'content-type': 'application/json ',
@@ -128,8 +118,12 @@ export const fetchTodos = () => (dispatch) => {
             mode: 'cors',
         })
             .then(res => res.json())
-            .then(data => dispatch(setTodos(data.todos)));
+            .then(data => dispatch(setPosts(data.posts)));
+
+        // Done
+        dispatch(setLoading(false));
     } catch (e) {
+        dispatch(setLoading(false));
         console.log(e);
     }
 };

@@ -26,7 +26,7 @@ class Login extends React.Component {
         return (
             <div className="form__auth">
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                    <h3>Login</h3>
+                    <h2>Login</h2>
                     <Field
                         name="username"
                         type="text"
@@ -42,8 +42,8 @@ class Login extends React.Component {
                         validate={this.required}
                     />
                     <button type="submit" className="btn btn--primary">Login</button>
+                    <Link to="/register" className="btn btn--default">Register</Link>
                 </form>
-                <Link to="/register" className="btn btn--default">Register</Link>
                 <button className="btn btn--facebook" onClick={this.props.facebookLogin}>Facebook login</button>
             </div>
         );

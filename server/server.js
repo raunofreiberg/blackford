@@ -13,7 +13,7 @@ const dev = process.env.NODE_ENV === 'development';
 const apiRoutes = require('./apiRoutes');
 const authRoutes = require('./authRoutes');
 const { ensureAuthenticated } = require('./auth/utils');
-const { queryUsers } = require('./models/auth');
+const knex = require('./dbConnect');
 
 const app = express();
 
@@ -30,13 +30,9 @@ app.use(cookieParser());
 
 app.use(passport.initialize());
 
-app.use('/api/todos', ensureAuthenticated);
-app.use('/api/todos', apiRoutes);
+app.use('/api/posts', ensureAuthenticated);
+app.use('/api/posts', apiRoutes);
 app.use('/auth', authRoutes);
-
-queryUsers()
-    .then(x => console.log(x))
-
 app.all('*', (req, res, next) => {
     res.sendFile('index.html', {
         root: dev ? helpers.root('client') : helpers.root('dist'),

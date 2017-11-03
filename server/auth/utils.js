@@ -2,19 +2,22 @@ const bcrypt = require('bcryptjs');
 const knex = require('../dbConnect');
 const jwt = require('jsonwebtoken');
 
-exports.comparePass = (userPassword, dbPassword) => bcrypt.compareSync(userPassword, dbPassword);
+const comparePass = (userPassword, dbPassword) => bcrypt.compareSync(userPassword, dbPassword);
 
-exports.ensureAuthenticated = (req, res, next) => {
+const verifyToken = (req) => {
+    const token = req.headers.authorization.split(' ')[1];
+    return jwt.verify(token, process.env.TOKEN_SECRET);
+};
+
+const ensureAuthenticated = (req, res, next) => {
     if (!(req.headers && req.headers.authorization)) {
         return res.status(400).json({
             status: 'User is not logged in.',
         });
     }
-    // decode the token
-    const header = req.headers.authorization.split(' ');
-    const token = header[1];
+
     try {
-        const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+        const decoded = verifyToken(req);
         return knex('users').where({ id: parseInt(decoded.id, 10) }).first()
             .then((user) => {
                 next();
@@ -39,7 +42,7 @@ exports.ensureAuthenticated = (req, res, next) => {
  * @param avatar {string} - URL of Facebook profile picture (optional)
  * @returns {string} - Encoded JWT
  */
-exports.encodeToken = ({ id, username, avatar }) => {
+const encodeToken = ({ id, username, avatar }) => {
     const payload = {
         id,
         username,
@@ -49,5 +52,12 @@ exports.encodeToken = ({ id, username, avatar }) => {
     return jwt.sign(payload, process.env.TOKEN_SECRET, {
         expiresIn: '14 days',
     });
+};
+
+module.exports = {
+    comparePass,
+    ensureAuthenticated,
+    encodeToken,
+    verifyToken,
 };
 

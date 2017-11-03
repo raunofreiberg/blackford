@@ -1,0 +1,102 @@
+@import '../../sass/variables';
+
+.posts__container {
+  padding: 32px 0;
+
+  h1 {
+    text-align: center;
+  }
+
+  .post {
+    height: 670px;
+    position: relative;
+    overflow: hidden;
+
+    margin-top: 32px;
+    padding: 16px;
+
+    box-shadow: $box-shadow;
+    border-radius: 4px;
+
+    &__header {
+      padding-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &-user {
+          margin-left: 16px;
+        }
+      }
+
+      &-actions {
+        &-del {
+          background: none;
+          border: 0;
+          margin-left: 8px;
+        }
+      }
+    }
+
+    &__avatar {
+      display: inline-block;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center center;
+
+      &--initials {
+        color: white;
+        background-color: #0a6aaf;
+
+        line-height: 45px;
+        text-align: center;
+        font-size: 25px;
+      }
+    }
+
+    &__image {
+      width: 110%;
+      height: 500px;
+      margin: 0 -16px;
+
+      background-size: cover;
+      background-position: center center;
+    }
+
+    &__description {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      padding-top: 16px;
+      max-width: 510px;
+
+      &-date {
+        display: inline-block;
+        font-size: 12px;
+        text-transform: uppercase;
+        color: #ccc;
+        margin-bottom: 8px;
+      }
+
+      input {
+        border: 0;
+        display: block;
+        border-bottom: 1.5px solid #ddd;
+        padding-bottom: 4px;
+      }
+
+      .input__bar:before,
+      .input__bar:after {
+        bottom: 0;
+      }
+    }
+  }
+}

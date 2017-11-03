@@ -4,9 +4,9 @@ import { Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import history from './history';
 
-import TodosNew from './components/TodosNew/TodosNew';
-import TodosShow from './components/TodoShow/TodoShow';
-import Todos from './components/Todos/Todos';
+import TodosNew from './components/Posts/CreatePost';
+import TodosShow from './components/Posts/PostDetail';
+import Posts from './components/Posts/Posts';
 
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
@@ -22,9 +22,9 @@ const AppRouter = () => (
                 <Switch>
                     <Route path="/register" component={Register}/>
                     <Route path="/login" component={Login}/>
-                    <Route path="/todos/new" component={RequireAuth(TodosNew)}/>
-                    <Route path="/todos/:id" component={RequireAuth(TodosShow)}/>
-                    <Route path="/" component={RequireAuth(Todos)}/>
+                    <Route path="/posts/new" component={RequireAuth(TodosNew)}/>
+                    <Route path="/posts/:id" component={RequireAuth(TodosShow)}/>
+                    <Route path="/" component={RequireAuth(Posts)}/>
                 </Switch>
             </div>
         </div>

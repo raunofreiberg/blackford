@@ -17,12 +17,12 @@ module.exports = webpackMerge(commonConfig, {
             use: [{
                 loader: 'style-loader',
             },
-                {
-                    loader: 'css-loader',
-                },
-                {
-                    loader: 'sass-loader',
-                },
+            {
+                loader: 'css-loader',
+            },
+            {
+                loader: 'sass-loader',
+            },
             ],
         }],
     },

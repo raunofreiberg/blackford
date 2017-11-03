@@ -1,7 +1,10 @@
 .form__auth {
-  width: 300px;
+  min-width: 350px;
+  margin-top: 90px;
+  padding: 32px;
+  box-shadow: $box-shadow;
 
-  h3 {
+  h2 {
     text-align: center;
   }
 }

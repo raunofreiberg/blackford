@@ -1,7 +1,6 @@
 // Vendors
 @import "~bootstrap-sass/assets/stylesheets/_bootstrap-sprockets.scss";
 @import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";
-@import "~normalize-scss/sass/normalize";
 
 // Global
 @import './global';
@@ -11,8 +10,9 @@
 @import 'atoms/forms';
 
 // Components
-@import '../components/Todos/Todos';
-@import '../components/TodosNew/TodosNew';
-@import '../components/TodoShow/TodoShow';
+@import '../components/Posts/Posts';
+@import '../components/Posts/CreatePost';
+@import '../components/Posts/PostDetail';
 @import '../components/Navbar/Navbar';
 @import '../components/Field/Field';
+@import '../components/Spinner/Spinner';

@@ -24,7 +24,7 @@ class Register extends React.Component {
 
         return (
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="form__auth">
-                <h3>Register</h3>
+                <h2>Register</h2>
                 <Field
                     name="username"
                     type="text"

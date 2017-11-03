@@ -43,15 +43,11 @@ class Posts extends React.Component {
 
     renderActionBtns = postId => (
         <div className="post__header-actions">
-            <Link to={`/posts/${postId}`} key={postId}>
-                <Icon icon="edit" />
-            </Link>
             <button
                 className="post__header-actions-del"
                 onClick={() => this.props.deletePost(postId)}
-                key={postId}
             >
-                <Icon icon="trash" />
+                <Icon icon="trash" key={postId} />
             </button>
         </div>
     );
@@ -60,9 +56,13 @@ class Posts extends React.Component {
         <input
             type="text"
             defaultValue={postDesc}
+            key={postDesc}
             onChange={e => this.handleDescriptionChange(postId, e)}
         />,
-        <span className="input__bar" />,
+        <span
+            className="input__bar"
+            key={postId}
+        />,
     ];
 
     renderPosts(posts) {

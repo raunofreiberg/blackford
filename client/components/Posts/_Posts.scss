@@ -18,6 +18,14 @@
     box-shadow: $box-shadow;
     border-radius: 4px;
 
+    @include breakpoint(max, height, 800px) {
+      height: 470px;
+
+      .post__image {
+        height: 290px;
+      }
+    }
+
     &__header {
       padding-bottom: 16px;
       display: flex;

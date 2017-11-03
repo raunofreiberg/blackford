@@ -6,8 +6,11 @@
 @import './global';
 
 // Atoms
-@import './atoms/buttons';
+@import 'atoms/buttons';
 @import 'atoms/forms';
+
+// Mixins
+@import 'mixins/breakpoints';
 
 // Components
 @import '../components/Posts/Posts';

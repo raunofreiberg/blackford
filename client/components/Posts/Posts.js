@@ -47,7 +47,7 @@ class Posts extends React.Component {
                 className="post__header-actions-del"
                 onClick={() => this.props.deletePost(postId)}
             >
-                <Icon icon="trash" key={postId} />
+                <Icon icon="trash" />
             </button>
         </div>
     );

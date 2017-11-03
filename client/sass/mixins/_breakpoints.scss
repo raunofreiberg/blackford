@@ -1,0 +1,17 @@
+@mixin breakpoint($type, $dimension, $class) {
+  @if $type==min {
+    @media (min-#{$dimension}: $class) {
+      @content;
+    }
+  }
+
+  @else if $type==max {
+    @media (max-#{$dimension}: $class) {
+      @content;
+    }
+  }
+
+  @else {
+    @warn "Breakpoint mixin supports: min- & max-width";
+  }
+}

@@ -56,7 +56,6 @@ export const createPost = values => async () => {
 };
 
 export const deletePost = postId => async (dispatch) => {
-    console.log(postId);
     try {
         let res = await fetch(`${process.env.API_HOST}/api/posts/${postId}`, {
             method: 'DELETE',

@@ -26,7 +26,7 @@ const insertPost = (req) => {
 const queryPosts = () => (
     knex('posts')
         .join('users', 'posts.user_id', 'users.id')
-        .select('users.id', 'posts.*', 'users.username', 'users.avatar')
+        .select('posts.*', 'users.username', 'users.avatar')
         .orderBy('posts.posted_at', 'desc')
 );
 

@@ -1,0 +1,12 @@
+@import '../../sass/variables';
+
+.authForm {
+    min-width: 350px;
+    margin-top: 90px;
+    padding: 32px;
+    box-shadow: $box-shadow;
+
+    h2 {
+        text-align: center;
+    }
+}

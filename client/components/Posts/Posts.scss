@@ -1,0 +1,115 @@
+@import '../../sass/variables';
+@import '../../sass/mixins/breakpoints';
+
+.postsWrapper {
+    padding: 32px 0;
+
+    h1 {
+        text-align: center;
+    }
+}
+
+.post {
+    width: 100%;
+    height: 640px;
+    position: relative;
+    overflow: hidden;
+
+    margin-top: 32px;
+    padding: 16px;
+
+    box-shadow: $box-shadow;
+    border-radius: 4px;
+
+    @include breakpoint(max, height, 800px) {
+        height: 470px;
+
+        .postImage {
+            height: 290px;
+        }
+    }
+
+}
+
+.postHeader {
+    padding-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.postInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.postUser {
+    margin-left: 16px;
+}
+
+.postAvatar {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center center;
+}
+
+.postInitials {
+    color: white;
+    background-color: #0a6aaf;
+
+    line-height: 45px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.postImage {
+    width: 110%;
+    height: 500px;
+    margin: 0 -16px;
+
+    background-size: cover;
+    background-position: center center;
+}
+
+.postDesc {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    padding-top: 16px;
+    max-width: 510px;
+
+    input {
+        border: 0;
+        display: block;
+        border-bottom: 1.5px solid #ddd;
+        padding-bottom: 4px;
+    }
+
+}
+
+.inputBar:before,
+.inputBar:after {
+    bottom: 0;
+}
+
+.postDate {
+    display: inline-block;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #ccc;
+    margin-bottom: 8px;
+}
+
+.postActions {
+    .delPost {
+        background: none;
+        border: 0;
+        margin-left: 8px;
+    }
+}
+

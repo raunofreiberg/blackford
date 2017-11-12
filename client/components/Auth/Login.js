@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
+import * as styles from './Auth.scss';
 
 import { logUserIn, facebookLogin } from '../../ducks/user';
 import renderField from '../Field/renderField';
@@ -24,7 +25,7 @@ class Login extends React.Component {
         const { handleSubmit } = this.props;
 
         return (
-            <div className="form__auth">
+            <div className={styles.authForm}>
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                     <h2>Login</h2>
                     <Field

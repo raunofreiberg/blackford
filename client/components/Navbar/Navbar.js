@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import * as styles from './Navbar.scss';
 import { logUserOut } from "../../ducks/user";
 
 class Navbar extends React.Component {
@@ -12,15 +13,15 @@ class Navbar extends React.Component {
 
     render() {
         return (
-            <div className="navbar__container">
-                <nav className="navbar navbar-default">
+            <div className={styles.navbarWrapper}>
+                <nav>
                     {this.props.isAuthorized ?
-                        <span className="navbar-username">{this.props.user.username}</span>
+                        <span className={styles.username}>{this.props.user.username}</span>
                         : ''
                     }
-                    <span className="navbar-app">Blackford</span>
+                    <span className={styles.appName}>Blackford</span>
                     {this.props.isAuthorized ?
-                        <button className="navbar-btn" onClick={() => this.props.onLogout()}>Log out</button>
+                        <button className={styles.btn} onClick={() => this.props.onLogout()}>Log out</button>
                         : ''
                     }
                 </nav>

@@ -36,6 +36,7 @@
     "bootstrap": "^3.3.7",
     "bootstrap-loader": "^2.1.0",
     "bootstrap-sass": "^3.3.7",
+    "classnames": "^2.2.5",
     "clean-webpack-plugin": "^0.1.16",
     "compression": "^1.7.1",
     "concurrently": "^3.5.0",

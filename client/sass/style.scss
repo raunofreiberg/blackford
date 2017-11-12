@@ -1,21 +1,11 @@
-// Vendors
-@import "~bootstrap-sass/assets/stylesheets/_bootstrap-sprockets.scss";
-@import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+
 
 // Global
-@import './global';
+:global {
+    @import './variables';
+    @import './global';
+    @import 'atoms/buttons';
+    @import 'atoms/inputs';
+    @import 'mixins/breakpoints';
+}
 
-// Atoms
-@import 'atoms/buttons';
-@import 'atoms/forms';
-
-// Mixins
-@import 'mixins/breakpoints';
-
-// Components
-@import '../components/Posts/Posts';
-@import '../components/Posts/CreatePost';
-@import '../components/Posts/PostDetail';
-@import '../components/Navbar/Navbar';
-@import '../components/Field/Field';
-@import '../components/Spinner/Spinner';

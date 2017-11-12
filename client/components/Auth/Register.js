@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 
+import * as styles from './Auth.scss';
 import { createUser, facebookLogin } from '../../ducks/user';
 import renderField from '../Field/renderField';
 
@@ -11,6 +12,7 @@ class Register extends React.Component {
     static propTypes = {
         createUser: PropTypes.func.isRequired,
         handleSubmit: PropTypes.func.isRequired,
+        facebookLogin: PropTypes.func.isRequired,
     };
 
     onSubmit(values) {
@@ -23,7 +25,7 @@ class Register extends React.Component {
         const { handleSubmit } = this.props;
 
         return (
-            <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="form__auth">
+            <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className={styles.authForm}>
                 <h2>Register</h2>
                 <Field
                     name="username"

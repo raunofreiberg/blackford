@@ -46,15 +46,7 @@ module.exports = webpackMerge(commonConfig, {
         new webpack.DefinePlugin({
             'process.env.API_HOST': JSON.stringify('http://207.154.244.76:3001'),
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            minimize: true,
-            mangle: false,
-            sourceMap: true,
-            compressor: {
-                drop_console: true,
-                warnings: false,
-            },
-        }),
+        new webpack.optimize.UglifyJsPlugin(),
         new webpack.optimize.AggressiveMergingPlugin(),
     ],
 });

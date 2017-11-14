@@ -3,43 +3,23 @@ const webpackMerge = require('webpack-merge');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const commonConfig = require('./webpack.common.js');
 const helpers = require('../helpers');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = webpackMerge(commonConfig, {
     devtool: 'eval-source-map',
+    entry: [
+        'babel-polyfill',
+        './client/index.js',
+    ],
     output: {
         path: helpers.root('dist'),
         filename: 'bundle.js',
-    },
-    module: {
-        rules: [{
-            test: /\.s?css/,
-            use: [{
-                loader: 'style-loader',
-            },
-            {
-                loader: 'css-loader',
-                options: {
-                    modules: true,
-                    localIdentName: '[path][name]__[local]--[hash:base64:5]',
-                }
-            },
-            {
-                loader: 'sass-loader',
-            },
-            ],
-        }],
     },
     plugins: [
         new WebpackNotifierPlugin({
             alwaysNotify: true,
         }),
-        new HtmlWebpackPlugin({
-            template: './client/index.html',
-        }),
         new webpack.DefinePlugin({
             'process.env.API_HOST': JSON.stringify('http://localhost:3001'),
-            'process.env.NODE_ENV': JSON.stringify('development'),
         }),
     ],
     devServer: {
@@ -48,8 +28,8 @@ module.exports = webpackMerge(commonConfig, {
         proxy: {
             '*': {
                 target: 'http://localhost:3001',
-                secure: false
-            }
-        }
-    }
+                secure: false,
+            },
+        },
+    },
 });

@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import './sass/style.scss';
+import './sass/_fonts.scss';
+
 import createReduxStore from './configureStore';
 import Router from './Router';
 import rootReducer from './reducers';
@@ -14,10 +16,9 @@ const store = createReduxStore(rootReducer);
 // Authentication JWT middleware
 Auth.ensureAuthenticated(store);
 
-
 ReactDOM.render(
     <Provider store={store}>
-        <Router/>
+        <Router />
     </Provider>, document.getElementById('app'),
 );
 

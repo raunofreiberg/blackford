@@ -1,3 +1,5 @@
+@import './mixins/_breakpoints.scss';
+
 body,
 button,
 input {
@@ -51,6 +53,27 @@ a {
 }
 
 .container {
-    width: 1200px;
     margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+
+@include breakpoint(min, width, 992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+@include breakpoint(min, width, 768px) {
+    .container {
+        width: 750px;
+    }
+}
+
+@include breakpoint(min, width, 1200px) {
+    .container {
+        width: 1170px;
+    }
 }

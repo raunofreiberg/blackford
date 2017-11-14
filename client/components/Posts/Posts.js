@@ -73,8 +73,6 @@ class Posts extends React.Component {
         } else {
             return (
                 <div className={classNames('container', styles.postsWrapper)}>
-                    <Link to="/posts/new" className="btn btn--primary">New Post</Link>
-                    <h1>Feed</h1>
                     {posts.map(post => (
                         <div className={styles.post} key={post.id}>
                             <div className={styles.postHeader}>
@@ -95,7 +93,10 @@ class Posts extends React.Component {
                                 </div>
                                 {this.props.user.id === post.user_id ? this.renderActionBtns(post.id) : ''}
                             </div>
-                            <div className={styles.postImage} style={{ backgroundImage: `url(./uploads/${post.image})` }} />
+                            <div
+                                className={styles.postImage}
+                                style={{ backgroundImage: `url(./uploads/${post.image})` }}
+                            />
                             <div className={styles.postDesc}>
                                 <span className={styles.postDate}>{moment(post.posted_at).fromNow()}</span>
                                 {

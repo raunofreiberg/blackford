@@ -1,11 +1,8 @@
-
-
 // Global
 :global {
     @import './variables';
     @import './global';
     @import 'atoms/buttons';
     @import 'atoms/inputs';
-    @import 'mixins/breakpoints';
 }
 

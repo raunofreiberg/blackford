@@ -46,12 +46,13 @@ class Auth {
             const token = this.getToken();
             try {
                 const decoded = jwtDecode(token);
-                const { id, username } = decoded;
+                const { id, username, avatar } = decoded;
 
                 store.dispatch(setAuthorized(true));
                 store.dispatch(setUser({
                     id,
                     username,
+                    avatar,
                 }));
             } catch (err) {
                 setTimeout(() => {

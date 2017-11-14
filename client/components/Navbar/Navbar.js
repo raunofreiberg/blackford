@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
+import { Link } from "react-router-dom";
 
+import Icon from '../Icons';
 import * as styles from './Navbar.scss';
 import { logUserOut } from "../../ducks/user";
 
@@ -11,21 +14,64 @@ class Navbar extends React.Component {
         isAuthorized: PropTypes.bool.isRequired,
     };
 
+    state = {
+        isDropdownOpen: false,
+    };
+
+    hideDropdown = () => {
+        this.setState({ isDropdownOpen: false });
+        document.removeEventListener('click', this.hideDropdown);
+    };
+
+    showDropdown = () => {
+        this.setState({ isDropdownOpen: true });
+        document.addEventListener('click', this.hideDropdown);
+    };
+
+    renderDropdown() {
+        const { isDropdownOpen } = this.state;
+        const { avatar, username } = this.props.user;
+
+        return (
+            <div className={styles.dropdownWrapper}>
+                {avatar ? <img src={avatar} /> : ''}
+                <button
+                    className={styles.dropdownBtn}
+                    onClick={this.showDropdown}
+                >
+                    {username}
+                    <Icon icon="chevron" />
+                </button>
+                <div className={classNames(styles.dropdown, isDropdownOpen ? styles.dropdownOpen : null)}>
+                    <Link to="/posts/new" className={styles.newPostBtn}>
+                        <Icon icon="plus" />
+                        New Post
+                    </Link>
+                    <button
+                        className={styles.logoutBtn}
+                        onClick={this.props.onLogout}
+                    >
+                        <Icon icon="logout" />
+                        Logout
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
     render() {
         return (
-            <div className={styles.navbarWrapper}>
-                <nav>
-                    {this.props.isAuthorized ?
-                        <span className={styles.username}>{this.props.user.username}</span>
-                        : ''
-                    }
+            <nav className={styles.navbarWrapper}>
+                <div className={classNames('container', styles.containerWrapper)}>
                     <span className={styles.appName}>Blackford</span>
-                    {this.props.isAuthorized ?
-                        <button className={styles.btn} onClick={() => this.props.onLogout()}>Log out</button>
-                        : ''
-                    }
-                </nav>
-            </div>
+                    <div className={styles.navbarActions}>
+                        {this.props.isAuthorized ?
+                            this.renderDropdown()
+                            : ''
+                        }
+                    </div>
+                </div>
+            </nav>
         );
     }
 }
@@ -45,3 +91,11 @@ const NavbarConnector = connect(
 )(Navbar);
 
 export default NavbarConnector;
+
+
+{/*<button className={styles.logoutBtn} onClick={() => this.props.onLogout()}>*/
+}
+{/*Log out*/
+}
+{/*</button>*/
+}

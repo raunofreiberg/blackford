@@ -1,47 +1,118 @@
 @import '../../sass/variables';
+@import '../../sass/keyframes';
 
 .navbarWrapper {
     width: 100%;
     height: 60px;
+    display: flex;
 
     position: fixed;
     z-index: 3;
     top: 0;
     left: 0;
+    padding: 0 16px;
 
-    nav {
+    color: $color-white;
+    font-size: 18px;
+    text-align: center;
+
+    box-shadow: 0 0 45px 5px rgba(16, 16, 16, 0.47);
+    background: $color-black;
+    border: 0;
+    border-radius: 0;
+
+    .containerWrapper {
         display: flex;
         align-items: center;
-        justify-content: center;
-
-        width: 100%;
-        height: 60px;
-        padding: 0 16px;
-        position: relative;
-        top: 0;
-        z-index: 1;
-
-        color: white;
-        font-size: 18px;
-        text-align: center;
-
-        box-shadow: 0 0 45px 5px rgba(16, 16, 16, 0.47);
-        background: $color-black;
-        border: 0;
-        border-radius: 0;
-
-        .appName {
-            font-size: 20px;
-        }
-
-        .username {
-            font-size: 16px;
-        }
-
-        .username,
-        .btn,
-        .appName {
-            flex: 1;
-        }
+        justify-content: space-between;
     }
+
+    .appName {
+        border-bottom: 1.5px solid $color-primary;
+        font-size: 20px;
+    }
+
+    .username {
+        font-size: 16px;
+    }
+}
+
+.navbarActions {
+}
+
+.dropdownBtn,
+.logoutBtn,
+.newPostBtn {
+    svg {
+        width: 16px;
+        height: 16px;
+        stroke: $color-primary;
+    }
+}
+
+.dropdownBtn {
+    svg {
+        margin-left: 8px;
+        vertical-align: middle;
+    }
+}
+
+.logoutBtn,
+.newPostBtn {
+    font-size: 16px;
+    padding: 8px 0;
+    color: $color-black;
+    display: flex;
+    align-items: center;
+
+    &:not(:first-of-type) {
+        margin-top: 16px;
+    }
+
+    svg {
+        margin-right: 16px;
+    }
+}
+
+.dropdownWrapper {
+    position: relative;
+
+    img {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        object-fit: cover;
+        vertical-align: middle;
+        margin-right: 16px;
+    }
+}
+
+.dropdown {
+    width: 110px;
+    display: none;
+    position: absolute;
+
+    padding: 16px;
+    top: calc(60px - 18px);
+    right: -59px;
+
+    border-radius: 4px;
+    box-shadow: $box-shadow;
+    background: $color-white;
+
+    &:after,
+    &:before {
+        content: "";
+        top: -7px;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid #fff;
+        position: absolute;
+        right: 45%;
+    }
+}
+
+.dropdownOpen {
+    display: block;
+    animation: open 600ms cubic-bezier(.3, .6, 0, 1);
 }

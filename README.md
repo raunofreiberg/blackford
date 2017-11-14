@@ -17,7 +17,7 @@
 - Redux: 3.7.x
 - React-Router: 4.1.x
 - Redux-Form: 6.8.x
-- SCSS
+- CSS Modules
 - Webpack 3.x
 
 

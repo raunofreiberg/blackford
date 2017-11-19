@@ -87,7 +87,7 @@ describe('# Authentication', () => {
     it('GET /api/posts/:id with a valid JWT and return a single post', async (done) => {
         const user = await knex('users').first();
         const token = encodeToken(user);
-        const POST_ID = 5;
+        const POST_ID = 4;
         const queriedPost = await knex('posts').where({ user_id: user.id, id: POST_ID }).first();
 
         request(app)
@@ -104,7 +104,7 @@ describe('# Authentication', () => {
                     image,
                     user_id,
                 }));
-                done()
-            })
+                done();
+            });
     });
 });

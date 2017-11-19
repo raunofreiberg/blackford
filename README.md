@@ -24,6 +24,7 @@
 
 #### Development Setup
 
+NOTE: Not using Docker primarily for development since it just adds overhead. Can easily just `docker-compose up` if you prefer to use Docker in your local env.
 
 * Create a database
 

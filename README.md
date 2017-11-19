@@ -15,6 +15,7 @@
   - Facebook OAuth
 - React: 15.6.x
 - Redux: 3.7.x
+- Jest 21.x
 - React-Router: 4.1.x
 - Redux-Form: 6.8.x
 - CSS Modules

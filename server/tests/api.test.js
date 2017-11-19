@@ -21,6 +21,7 @@ describe('# Authentication', () => {
                     console.log(err)
                 } else {
                     console.log(res);
+                    done()
                 }
             })
     });

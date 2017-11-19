@@ -12,19 +12,11 @@ describe('# Authentication', () => {
         done();
     });
 
-    it('GET /', (done) => {
-        request(app)
-            .get('/')
-            .expect(200)
-            .end((err, res) => {
-                if (err) {
-                    console.log(err)
-                } else {
-                    console.log(res);
-                    done()
-                }
-            })
-    });
+    // it('GET /', (done) => {
+    //     request(app)
+    //         .get('/')
+    //         .expect(200, done);
+    // });
 
     it('GET /api/posts without authentication', (done) => {
         request(app)

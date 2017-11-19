@@ -18,7 +18,6 @@ exports.createPost = (req, res) => {
 exports.fetchPosts = (req, res) => {
     posts.queryPosts(req, res)
         .then((posts) => {
-            console.log(posts);
             res.status(200).json({
                 posts,
             });

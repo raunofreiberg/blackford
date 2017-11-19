@@ -11,7 +11,7 @@ const verifyToken = (req) => {
 
 const ensureAuthenticated = (req, res, next) => {
     if (!(req.headers && req.headers.authorization)) {
-        return res.status(400).json({
+        return res.status(403).json({
             status: 'User is not logged in.',
         });
     }

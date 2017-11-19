@@ -9,4 +9,8 @@ module.exports = {
         client: 'postgres',
         connection: process.env.DATABASE_URL,
     },
+    test: {
+        client: 'postgres',
+        connection: 'postgres://localhost/test_blackford',
+    },
 };

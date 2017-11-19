@@ -51,7 +51,6 @@ describe('# Authentication', () => {
         };
 
         const token = encodeFaultyJwt(user);
-        
         request(app)
             .get('/api/posts')
             .set('Authorization', `Bearer ${token}`)

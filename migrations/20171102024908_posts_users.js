@@ -13,7 +13,7 @@ exports.up = (knex, Promise) => {
             table.increments();
             table.text('description');
             table.text('image').notNullable();
-            table.integer('user_id').unsigned().references('users.id');
+            table.integer('user_id').unsigned().references('users.id').onDelete('CASCADE');
             table.timestamp('posted_at').notNullable().defaultTo(knex.raw('now()'));
         }),
     ]);

@@ -15,7 +15,14 @@ describe('# Authentication', () => {
     it('GET /', (done) => {
         request(app)
             .get('/')
-            .expect(200, done);
+            .expect(200)
+            .end((err, res) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    console.log(res);
+                }
+            })
     });
 
     it('GET /api/posts without authentication', (done) => {
@@ -51,6 +58,7 @@ describe('# Authentication', () => {
         };
 
         const token = encodeFaultyJwt(user);
+
         request(app)
             .get('/api/posts')
             .set('Authorization', `Bearer ${token}`)

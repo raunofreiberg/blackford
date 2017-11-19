@@ -1,3 +1,4 @@
+// Used for seeding the unit testing database
 exports.seed = knex => (
     knex('users').del()
         .then(() => (

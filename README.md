@@ -22,7 +22,7 @@
 - Webpack 3.x
 
 
-#### Setup
+#### Development Setup
 
 
 * Create a database
@@ -67,3 +67,10 @@ $ npm run dev
 * You should be able to see the application at `localhost:8080`
 
 
+#### Production
+
+```
+$ docker-compose -f Docker-compose.prod.yml up
+```
+
+Done ;)

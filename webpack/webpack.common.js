@@ -1,5 +1,6 @@
 require('dotenv').config();
 const webpack = require('webpack');
+const helpers = require('../helpers');
 
 module.exports = {
     module: {
@@ -28,7 +29,14 @@ module.exports = {
             },
             {
                 loader: 'sass-loader',
-            }],
+            },
+            {
+                loader: 'sass-resources-loader',
+                options: {
+                    resources: helpers.root('./client/sass/_utils.scss'),
+                },
+            },
+            ],
         }],
     },
     plugins: [

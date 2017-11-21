@@ -33,6 +33,11 @@ app.use(passport.initialize());
 app.use('/api/posts', ensureAuthenticated);
 app.use('/api/posts', apiRoutes);
 app.use('/auth', authRoutes);
+
+// const knex = require('./dbConnect');
+// knex('users')
+//     .then(x => console.log(x))
+
 app.all('*', (req, res, next) => {
     res.sendFile('index.html', {
         root: dev ? helpers.root('client') : helpers.root('dist'),

@@ -13,7 +13,7 @@
     "migrate": "knex migrate:latest",
     "lint": "eslint client/ --ext .js --ext .jsx && eslint server/ --ext .js",
     "test": "(dropdb test_blackford --if-exists && createdb test_blackford) && NODE_ENV=test jest",
-    "cover": "istanbul cover jest --no-default-excludes",
+    "cover": "istanbul cover npm run test --no-default-excludes",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "keywords": [],

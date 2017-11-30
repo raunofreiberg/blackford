@@ -58,6 +58,7 @@ describe('# Authentication', () => {
 
     it('GET /api/posts with a invalid JWT', async (done) => {
         const user = await knex('users').first();
+        console.log(user)
         const encodeFaultyJwt = ({ id, username, avatar }) => {
             const payload = {
                 id,

@@ -12,7 +12,7 @@
     "prod": "concurrently \"npm run build\" \"npm run migrate\" \"npm run start\"",
     "migrate": "knex migrate:latest",
     "lint": "eslint client/ --ext .js --ext .jsx && eslint server/ --ext .js",
-    "test": "(dropdb test_blackford --if-exists && createdb test_blackford) && NODE_ENV=test jest",
+    "test": "(dropdb test_blackford --if-exists && createdb test_blackford) && NODE_ENV=test jest --forceExit",
     "watch": "(dropdb test_blackford --if-exists && createdb test_blackford) && NODE_ENV=test jest --watch *.js",
     "cover": "istanbul cover npm run test --no-default-excludes",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"

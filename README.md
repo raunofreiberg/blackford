@@ -10,6 +10,7 @@
 - KnexJS: 0.13.x
 - PostgreSQL: 9.6.x
 - Docker CE
+- Nginx
 - PassportJS with JWT for authentication
   - Local authentication
   - Facebook OAuth
@@ -20,7 +21,6 @@
 - Redux-Form: 6.8.x
 - CSS Modules
 - Webpack 3.x
-- Nginx for reverse proxying
 
 
 #### Development Setup

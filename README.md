@@ -20,6 +20,7 @@
 - Redux-Form: 6.8.x
 - CSS Modules
 - Webpack 3.x
+- Nginx for reverse proxying
 
 
 #### Development Setup

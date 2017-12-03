@@ -33,7 +33,7 @@ NOTE: Not using Docker primarily for development since it just adds overhead. Ca
 $ createdb DB_NAME
 ```
 
-* Create a .env file at the root of your application and update it with your env variables
+* Create a .env file at the root of your application and update it with your env variables.
 
 ```
 DATABASE_URL=postgres://localhost/<DB_NAME> // URL of your database

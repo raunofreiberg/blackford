@@ -14,8 +14,6 @@ services:
     environment:
       - NODE_ENV=production
       - TOKEN_SECRET=poop
-      - CLIENT_SECRET=7abd19c9e3a9e94e1335ada54622c558
-      - CLIENT_ID=1728869704086428
       - DATABASE_URL=postgres://test:test@db:5432/blackford
     command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; npm run prod'
   db:

@@ -10,6 +10,7 @@
 - KnexJS: 0.13.x
 - PostgreSQL: 9.6.x
 - Docker CE
+- Nginx
 - PassportJS with JWT for authentication
   - Local authentication
   - Facebook OAuth

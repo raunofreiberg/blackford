@@ -4,7 +4,7 @@ const multer = require('multer');
 const dev = process.env.NODE_ENV === 'development';
 const upload = multer({
     fileSize: '10MB',
-    dest: dev ? 'client/uploads' : 'dist/uploads',
+    dest: dev ? 'client/uploads' : './uploads',
 });
 const {
     fetchPosts,

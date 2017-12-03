@@ -18,7 +18,6 @@ module.exports = webpackMerge(commonConfig, {
     output: {
         path: helpers.root('dist'),
         filename: '[name].[chunkhash].js',
-        publicPath: '/',
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
@@ -44,7 +43,7 @@ module.exports = webpackMerge(commonConfig, {
             },
         }),
         new webpack.DefinePlugin({
-            'process.env.API_HOST': JSON.stringify('http://207.154.244.76:3001'),
+            'process.env.API_HOST': JSON.stringify('http://freiberg.tech'),
         }),
         new webpack.optimize.UglifyJsPlugin(),
         new webpack.optimize.AggressiveMergingPlugin(),

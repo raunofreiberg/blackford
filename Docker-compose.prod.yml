@@ -5,7 +5,7 @@ services:
     ports:
       - "3001:3001"
     volumes:
-      - .:/usr/src
+      - .:/usr/app
       - /usr/app/node_modules
     links:
       - db
@@ -32,6 +32,8 @@ services:
   nginx:
     restart: always
     build: ./nginx/
+    volumes:
+      - ./dist:/var/lib/assets
     ports:
       - "80:80"
     depends_on:

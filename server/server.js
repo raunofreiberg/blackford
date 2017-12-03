@@ -25,7 +25,6 @@ app.use(bodyParser.urlencoded({
     extended: false,
 }));
 
-app.use(express.static(dev ? helpers.root('client') : helpers.root('dist')));
 app.use(cookieParser());
 
 app.use(passport.initialize());
@@ -38,10 +37,14 @@ app.use('/auth', authRoutes);
 // knex('users')
 //     .then(x => console.log(x))
 
-app.all('*', (req, res, next) => {
-    res.sendFile('index.html', {
-        root: dev ? helpers.root('client') : helpers.root('dist'),
+// Nginx is used to serve static files in production.
+if (dev) {
+    app.use(express.static(helpers.root('client')));
+    app.all('*', (req, res, next) => {
+        res.sendFile('index.html', {
+            root: helpers.root('client'),
+        });
     });
-});
+}
 
 module.exports = app;

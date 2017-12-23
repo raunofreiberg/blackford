@@ -32,6 +32,7 @@ services:
     build: ./nginx/
     volumes:
       - ./dist:/var/lib/assets
+      - ./uploads:/var/lib/assets/uploads
     ports:
       - "80:80"
     depends_on:

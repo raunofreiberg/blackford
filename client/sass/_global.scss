@@ -1,7 +1,7 @@
 body,
 button,
 input {
-    font-family: "Circular Air";
+    font-family: "Circular Air" !important;
     letter-spacing: 0.03em;
     font-size: 16px;
 }
@@ -20,7 +20,7 @@ h1,
 h2,
 h3,
 h4 {
-    font-family: "Playfair Display",
+    font-family: "Playfair Display" !important;
 }
 
 h1 {
@@ -48,30 +48,4 @@ input:focus {
 a {
     text-decoration: none;
     padding: 0;
-}
-
-.container {
-    margin: 0 auto;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-
-
-@include breakpoint(min, width, 992px) {
-    .container {
-        width: 970px;
-    }
-}
-
-@include breakpoint(min, width, 768px) {
-    .container {
-        width: 750px;
-    }
-}
-
-@include breakpoint(min, width, 1200px) {
-    .container {
-        width: 1170px;
-    }
 }

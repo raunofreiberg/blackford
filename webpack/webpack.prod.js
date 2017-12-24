@@ -1,11 +1,12 @@
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
-const commonConfig = require('./webpack.common.js');
-const helpers = require('../helpers');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const commonConfig = require('./webpack.common.js');
+const helpers = require('../helpers');
+const bootstrapEntryPoints = require('./webpack.bootstrap.config');
 
 module.exports = webpackMerge(commonConfig, {
     devtool: 'eval',
@@ -13,6 +14,7 @@ module.exports = webpackMerge(commonConfig, {
         bundle: [
             'babel-polyfill',
             './client/index.js',
+            bootstrapEntryPoints.dev,
         ],
     },
     output: {

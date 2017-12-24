@@ -7,7 +7,7 @@ import getNotificationOptions from '../utils/notifications';
 import Auth from '../utils/authentication';
 
 const fbApi = fbLogin({
-    appId: '1728869704086428',
+    appId: process.env.FACEBOOK_APP_ID,
     cookie: false,
 });
 const SET_USER = 'SET_USER';

@@ -5,14 +5,22 @@ const knex = require('../dbConnect');
 const app = require('../server');
 const { encodeToken } = require('../auth/utils');
 
-describe('# Authentication', () => {
-    beforeEach(async (done) => {
+describe('# API Authentication', () => {
+    let token;
+    let user;
+
+    beforeEach(async () => {
         await knex.migrate.latest();
         await knex.seed.run();
-        done();
+        user = await knex('users').where({
+            id: 1,
+            username: 'Test Dude',
+            password: 'password',
+        }).first();
+        token = encodeToken(user);
     });
 
-    it('GET /api/posts without authentication', (done) => {
+    it('GET /api/posts without authentication', () => {
         request(app)
             .get('/api/posts')
             .expect('Content-type', /json/)
@@ -21,13 +29,10 @@ describe('# Authentication', () => {
                 if (err) throw err;
 
                 expect(res.body).toEqual({ status: "User is not logged in." });
-                done();
             });
     });
 
-    it('GET /api/posts with a valid JWT and return all posts', async (done) => {
-        const user = await knex('users').first();
-        const token = encodeToken(user);
+    it('GET /api/posts with a valid JWT and return all posts', async () => {
         const posts =
             await knex('posts')
                 .join('users', 'posts.user_id', 'users.id')
@@ -52,12 +57,10 @@ describe('# Authentication', () => {
                         image: posts[idx].image,
                     }));
                 });
-                done();
             });
     });
 
-    it('GET /api/posts with a invalid JWT', async (done) => {
-        const user = await knex('users').first();
+    it('GET /api/posts with a invalid JWT', async () => {
         const encodeFaultyJwt = ({ id, username, avatar }) => {
             const payload = {
                 id,
@@ -70,24 +73,23 @@ describe('# Authentication', () => {
             });
         };
 
+        const user = await knex('users').first();
         const token = encodeFaultyJwt(user);
 
         request(app)
             .get('/api/posts')
             .set('Authorization', `Bearer ${token}`)
             .expect('Content-type', /json/)
+            .expect(401)
             .end((err, res) => {
                 if (err) throw err;
 
                 expect(res.body).toEqual({ status: "Token is invalid or has expired." });
-                done();
             });
     });
 
-    it('GET /api/posts/:id with a valid JWT and return a single post', async (done) => {
-        const user = await knex('users').first();
-        const token = encodeToken(user);
-        const POST_ID = 4;
+    it('GET /api/posts/:id with a valid JWT and return a single post', async () => {
+        const POST_ID = 21;
         const queriedPost = await knex('posts').where({ user_id: user.id, id: POST_ID }).first();
 
         request(app)
@@ -104,7 +106,26 @@ describe('# Authentication', () => {
                     image,
                     user_id,
                 }));
-                done();
+            });
+    });
+
+    it('POST /api/posts/', async () => {
+        const filePath = `${__dirname}/files/file1.png`;
+        const description = 'this is a dope post';
+
+        request(app)
+            .post('/api/posts/')
+            .set('Authorization', `Bearer ${token}`)
+            .attach('image', filePath)
+            .field('description', description)
+            .expect('Content-type', /json/)
+            .expect(200)
+            .end((err, res) => {
+                if (err) throw err;
+
+                const { image, description } = res.body.post[0];
+                expect(image).toEqual(expect.stringContaining('file1'));
+                expect(description).toEqual(description);
             });
     });
 });

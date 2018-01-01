@@ -14,7 +14,7 @@
 - PassportJS with JWT for authentication
   - Local authentication
   - Facebook OAuth
-- React: 15.6.x
+- React: 16
 - Redux: 3.7.x
 - Jest 21.x
 - React-Router: 4.1.x

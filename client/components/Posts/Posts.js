@@ -16,8 +16,7 @@ class Posts extends React.Component {
             id: PropTypes.number.isRequired,
             username: PropTypes.string.isRequired,
         }).isRequired,
-        isAuthorized: PropTypes.bool.isRequired,
-        isLoading: PropTypes.bool.isRequired,
+
         posts: PropTypes.arrayOf(PropTypes.shape({
             avatar: PropTypes.string,
             description: PropTypes.string,
@@ -26,6 +25,10 @@ class Posts extends React.Component {
             username: PropTypes.string.isRequired,
             user_id: PropTypes.number.isRequired,
         })).isRequired,
+
+        isAuthorized: PropTypes.bool.isRequired,
+        isLoading: PropTypes.bool.isRequired,
+
         deletePost: PropTypes.func.isRequired,
         fetchPosts: PropTypes.func.isRequired,
         editPost: PropTypes.func.isRequired,
@@ -118,7 +121,6 @@ class Posts extends React.Component {
         return posts ? this.renderPosts(posts) : 'Nothing';
     }
 }
-
 
 const mapStateToProps = state => ({
     posts: state.posts.posts,

@@ -23,12 +23,13 @@ const insertPost = (req) => {
 };
 
 // Join the `posts` and `users` tables and grab the related user information along with the post.
-const queryPosts = () => (
+const queryPosts = () =>
     knex('posts')
         .join('users', 'posts.user_id', 'users.id')
         .select('posts.*', 'users.username', 'users.avatar')
-        .orderBy('posts.posted_at', 'desc')
-);
+        .orderBy('posts.posted_at', 'desc');
+
+const queryPost = req => knex('posts').where({ id: req.params.id }).first();
 
 const deletePost = (req) => {
     try {
@@ -64,13 +65,6 @@ const editPost = (req) => {
     } catch (err) {
         throw err;
     }
-};
-
-const queryPost = (req) => {
-    return knex('posts')
-        .where({
-            id: req.params.id,
-        }).first();
 };
 
 module.exports = {

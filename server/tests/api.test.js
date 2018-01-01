@@ -109,7 +109,7 @@ describe('# API Authentication', () => {
             });
     });
 
-    it('POST /api/posts/', async () => {
+    it('POST /api/posts/ - add a new post with description & image', async () => {
         const filePath = `${__dirname}/files/file1.png`;
         const description = 'this is a dope post';
 
@@ -126,6 +126,17 @@ describe('# API Authentication', () => {
                 const { image, description } = res.body.post[0];
                 expect(image).toEqual(expect.stringContaining('file1'));
                 expect(description).toEqual(description);
+            });
+    });
+
+    it('PUT /api/posts/ - edit a post', async () => {
+        request(app)
+            .put('/api/posts/')
+            .set('Authorization', `Bearer ${token}`)
+            .expect('Content-type', /json/)
+            .expect(200)
+            .end((err, res) => {
+                if (err) throw err;
             });
     });
 });

@@ -16,7 +16,7 @@ exports.createPost = (req, res) => {
 };
 
 exports.fetchPosts = (req, res) => {
-    posts.queryPosts(req, res)
+    posts.queryPosts(req)
         .then((posts) => {
             res.status(200).json({
                 posts,
@@ -31,7 +31,7 @@ exports.fetchPosts = (req, res) => {
 };
 
 exports.deletePost = (req, res) => {
-    posts.deletePost(req, res)
+    posts.deletePost(req)
         .then((posts) => {
             console.log(posts);
             res.status(200).json({
@@ -47,7 +47,7 @@ exports.deletePost = (req, res) => {
 };
 
 exports.editPost = (req, res) => {
-    posts.editPost(req, res)
+    posts.editPost(req)
         .then((post) => {
             res.status(200).json({
                 post,
@@ -62,7 +62,7 @@ exports.editPost = (req, res) => {
 };
 
 exports.fetchPost = (req, res) => {
-    posts.queryPost(req, res)
+    posts.queryPost(req)
         .then((post) => {
             res.status(200).json({
                 post,

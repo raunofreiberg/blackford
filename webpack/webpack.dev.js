@@ -13,7 +13,7 @@ module.exports = webpackMerge(commonConfig, {
         bootstrapEntryPoints.dev,
     ],
     output: {
-        path: helpers.root('dist'),
+        path: helpers.root('client'),
         filename: 'bundle.js',
     },
     plugins: [

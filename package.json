@@ -4,6 +4,8 @@
   "description": "",
   "main": "./server/init.js",
   "scripts": {
+    "webpack-watch": "webpack -p --config webpack/webpack.dev.js --progress --profile --color --watch",
+    "docker-dev": "concurrently \"NODE_ENV=development npm run server\" \"NODE_ENV=development npm run webpack-watch\"",
     "dev": "concurrently \"NODE_ENV=development npm run client\" \"NODE_ENV=development npm run server\"",
     "client": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --progress --colors",
     "server": "./node_modules/.bin/nodemon ./server/init.js",

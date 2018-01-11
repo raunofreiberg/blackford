@@ -13,15 +13,18 @@ services:
       - db
     environment:
       - NODE_ENV=production
-      - TOKEN_SECRET=poop
       - DATABASE_URL=postgres://test:test@db:5432/blackford
+      - TOKEN_SECRET=<JWT_KEY>
+      - CLIENT_SECRET=<CLIENT_SECRET>
+      - CLIENT_ID=<CLIENT_ID>
+      - FACEBOOK_APP_ID=<FACEBOOK_APP_ID>
     command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; npm run prod'
   db:
     image: postgres
     ports:
       - "5432:5432"
     volumes:
-      - ".data-postgres:/var/lib/postgresql/data"
+      - .data-postgres:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=test
       - POSTGRES_PASSWORD=test

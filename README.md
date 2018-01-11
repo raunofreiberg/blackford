@@ -23,9 +23,7 @@
 - Webpack 3.x
 
 
-#### Development Setup
-
-NOTE: Not using Docker primarily for development since it just adds overhead. Can easily just `docker-compose up` if you prefer to use Docker in your local env.
+#### Development Setup (Non-Docker variant)
 
 * Create a database
 
@@ -38,20 +36,16 @@ $ createdb DB_NAME
 ```
 DATABASE_URL=postgres://localhost/<DB_NAME> // URL of your database
 TOKEN_SECRET=<SECRET> // Signature for signing JWT's
-CLIENT_SECRET=<CLIENT_SECRET> // Facebook app client secret
-CLIENT_ID=<CLIENT_ID> // Facebook app client ID
+CLIENT_SECRET=<CLIENT_SECRET> // Facebook app secret
+CLIENT_ID=<CLIENT_ID> // Facebook client ID
+FACEBOOK_APP_ID=<FACEBOOK_APP_ID> // Facebook app ID
 ```
 
 * Install dependencies
 
 ```
 $ npm install
-```
-
-* Also, install Knex since you probably don't have it
-
-```
-$ npm install -g knex
+$ npm install -g knex // database connection wrapper - you probably don't have this
 ```
 
 * Run the migrations provided by this repo
@@ -66,8 +60,27 @@ $ knex migrate:latest
 $ npm run dev
 ```
 
-* You should be able to see the application at `localhost:8080`
+* You should be able to see the application at `localhost:8080`. All API requests are proxied to the Node.js server running at port 3001
 
+
+#### Docker
+
+* Set some env variables for the Docker-compose.yml file
+
+```
+TOKEN_SECRET=<SECRET> // Signature for signing JWT's
+CLIENT_SECRET=<CLIENT_SECRET> // Facebook app secret
+CLIENT_ID=<CLIENT_ID> // Facebook client ID
+FACEBOOK_APP_ID=<FACEBOOK_APP_ID> // Facebook app ID
+```
+
+* Run it
+
+```
+$ docker-compose up
+```
+
+* Application is available at localhost:3001. No `webpack-dev-server` is used inside Docker, just a regular webpack watch instead.
 
 #### Production
 
@@ -75,4 +88,4 @@ $ npm run dev
 $ docker-compose -f Docker-compose.prod.yml up
 ```
 
-Done ;)
+¯\_(ツ)_/¯

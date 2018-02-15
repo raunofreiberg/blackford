@@ -83,7 +83,7 @@ class Posts extends React.Component {
                                     {post.avatar ?
                                         <div
                                             className={styles.postAvatar}
-                                            style={{ backgroundImage: `url(${post.avatar}` }}
+                                            style={{ backgroundImage: `url(${post.avatar})` }}
                                         />
                                         :
                                         <div

@@ -73,46 +73,46 @@ class Posts extends React.Component {
     renderPosts(posts) {
         if (this.props.isLoading) {
             return <Spinner />;
-        } else {
-            return (
-                <div className={classNames('container', styles.postsWrapper)}>
-                    {posts.map(post => (
-                        <div className={styles.post} key={post.id}>
-                            <div className={styles.postHeader}>
-                                <div className={styles.postInfo}>
-                                    {post.avatar ?
-                                        <div
-                                            className={styles.postAvatar}
-                                            style={{ backgroundImage: `url(${post.avatar})` }}
-                                        />
-                                        :
-                                        <div
-                                            className={classNames(styles.postAvatar, styles.postInitials)}
-                                        >
-                                            {post.username.charAt(0)}
-                                        </div>
-                                    }
-                                    <span className={styles.postUser}>{post.username}</span>
-                                </div>
-                                {this.props.user.id === post.user_id ? this.renderActionBtns(post.id) : ''}
-                            </div>
-                            <div
-                                className={styles.postImage}
-                                style={{ backgroundImage: `url(./uploads/${post.image})` }}
-                            />
-                            <div className={styles.postDesc}>
-                                <span className={styles.postDate}>{moment(post.posted_at).fromNow()}</span>
-                                {
-                                    this.props.user.id === post.user_id ?
-                                        this.renderEditableDesc(post.description, post.id) :
-                                        <p>{post.description}</p>
-                                }
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            );
         }
+
+        return (
+            <div className={classNames('container', styles.postsWrapper)}>
+                {posts.map(post => (
+                    <div className={styles.post} key={post.id}>
+                        <div className={styles.postHeader}>
+                            <div className={styles.postInfo}>
+                                {post.avatar ?
+                                    <div
+                                        className={styles.postAvatar}
+                                        style={{ backgroundImage: `url(${post.avatar})` }}
+                                    />
+                                    :
+                                    <div
+                                        className={classNames(styles.postAvatar, styles.postInitials)}
+                                    >
+                                        {post.username.charAt(0)}
+                                    </div>
+                                }
+                                <span className={styles.postUser}>{post.username}</span>
+                            </div>
+                            {this.props.user.id === post.user_id && this.renderActionBtns(post.id)}
+                        </div>
+                        <div
+                            className={styles.postImage}
+                            style={{ backgroundImage: `url(./uploads/${post.image})` }}
+                        />
+                        <div className={styles.postDesc}>
+                            <span className={styles.postDate}>{moment(post.posted_at).fromNow()}</span>
+                            {
+                                this.props.user.id === post.user_id ?
+                                    this.renderEditableDesc(post.description, post.id) :
+                                    <p>{post.description}</p>
+                            }
+                        </div>
+                    </div>
+                ))}
+            </div>
+        );
     }
 
     render() {

@@ -95,11 +95,11 @@ class Posts extends React.Component {
                                 }
                                 <span className={styles.postUser}>{post.username}</span>
                             </div>
-                            {this.props.user.id === post.user_id ? this.renderActionBtns(post.id) : ''}
+                            {this.props.user.id === post.user_id && this.renderActionBtns(post.id)}
                         </div>
                         <div
                             className={styles.postImage}
-                            style={{ backgroundImage: `url(./uploads/${post.image})` }}
+                            style={{ backgroundImage: `url('./uploads/${post.image}')` }}
                         />
                         <div className={styles.postDesc}>
                             <span className={styles.postDate}>{moment(post.posted_at).fromNow()}</span>

@@ -84,7 +84,7 @@ class Posts extends React.Component {
                                 {post.avatar ?
                                     <div
                                         className={styles.postAvatar}
-                                        style={{ backgroundImage: `url(${post.avatar}` }}
+                                        style={{ backgroundImage: `url(${post.avatar})` }}
                                     />
                                     :
                                     <div
@@ -99,7 +99,7 @@ class Posts extends React.Component {
                         </div>
                         <div
                             className={styles.postImage}
-                            style={{ backgroundImage: `url('./uploads/${post.image}')` }}
+                            style={{ backgroundImage: `url(./uploads/${post.image})` }}
                         />
                         <div className={styles.postDesc}>
                             <span className={styles.postDate}>{moment(post.posted_at).fromNow()}</span>
